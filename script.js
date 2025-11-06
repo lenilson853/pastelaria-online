@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURAÇÃO ---
     const numeroWhatsApp = "5581999999999"; 
     const taxaDeEntrega = 2.00;
+    // Link da sua planilha
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHC-Br97ylD79ttDTEtPmRQ2KLm5BbGu79cJjofNIrJYM-rALvrLOjDE-_QZpHpaxtLR38eRd4kqjd/pub?output=csv';
 
     // --- LÓGICA DE PREÇO DO PASTEL ---
@@ -444,6 +445,7 @@ ${listaItens}
     
     function parseCSV(text) {
         const lines = text.split('\n');
+        // ATUALIZADO: Agora é "à prova de erros" de maiúsculas/minúsculas
         const header = lines[0].split(',').map(h => h.trim().toLowerCase());
         const data = [];
         
@@ -452,6 +454,7 @@ ${listaItens}
             if (values.length === header.length) {
                 const entry = {};
                 for (let j = 0; j < header.length; j++) {
+                    // Os valores são limpos de espaços, mas mantêm maiúsculas/minúsculas (ex: "Pizza")
                     entry[header[j]] = values[j].trim();
                 }
                 data.push(entry);
@@ -462,6 +465,7 @@ ${listaItens}
 
     async function carregarCardapio() {
         try {
+            // ATUALIZADO: Adiciona um parâmetro aleatório para "burlar" o cache
             const url = new URL(GOOGLE_SHEET_URL);
             url.searchParams.append('t', new Date().getTime()); 
             
@@ -473,18 +477,19 @@ ${listaItens}
             const csvText = await response.text();
             const data = parseCSV(csvText);
             
+            // ATUALIZADO: Compara 'estoque' e 'tipo' em minúsculas
             const menuAtivo = data.filter(item => item.estoque && item.estoque.toLowerCase() === 'sim');
 
             menuSabores = menuAtivo
                 .filter(item => item.tipo && item.tipo.toLowerCase() === 'pastel')
-                .map(item => ({ nome: item.nome }));
+                .map(item => ({ nome: item.nome })); // 'nome' vem da planilha
             
             menuBebidas = menuAtivo
                 .filter(item => item.tipo && item.tipo.toLowerCase() === 'bebida')
                 .map(item => ({
-                    id: item.nome, 
+                    id: item.nome, // Usa o NOME como ID único
                     nome: item.nome,
-                    preco: parseFloat(item.preco)
+                    preco: parseFloat(item.preco) // 'preco' vem da planilha
                 }));
             
             renderizarSabores();
