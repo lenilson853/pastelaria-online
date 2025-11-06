@@ -1,524 +1,520 @@
 /* --- Variáveis de Cor --- */
 :root {
-    --cor-vermelha: #A91D22;
-    --cor-amarela: #FAD02E;
-    --cor-branca: #FFFFFF;
-    --cor-texto: #333333;
-    --cor-sombra: rgba(0, 0, 0, 0.2);
-    --cor-verde: #00A859;
+    --cor-vermelha: #A91D22;
+    --cor-amarela: #FAD02E;
+    --cor-branca: #FFFFFF;
+    --cor-texto: #333333;
+    --cor-sombra: rgba(0, 0, 0, 0.2);
+    --cor-verde: #00A859;
 }
 
 /* --- Estilos Globais --- */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: var(--cor-vermelha);
-    color: var(--cor-branca);
-    padding-bottom: 70px; 
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--cor-vermelha);
+    color: var(--cor-branca);
+    padding-bottom: 70px; 
 }
 
 /* --- Cabeçalho e Título --- */
 header {
-    padding: 20px;
-    text-align: center;
+    padding: 20px;
+    text-align: center;
 }
 
 h1 {
-    font-family: 'Impact', sans-serif;
-    font-size: 3.5em;
-    color: var(--cor-amarela);
-    text-shadow: 3px 3px 0px #000000;
-    letter-spacing: 1px;
+    font-family: 'Impact', sans-serif;
+    font-size: 3.5em;
+    color: var(--cor-amarela);
+    text-shadow: 3px 3px 0px #000000;
+    letter-spacing: 1px;
 }
 
 h2 {
-    margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 /* --- Seção Principal (Menu) --- */
 #menu {
-    text-align: center;
-    padding: 0; 
-    background: none;
-    box-shadow: none;
+    text-align: center;
+    padding: 0; 
+    background: none;
+    box-shadow: none;
 }
 
 #pastel-image {
-    width: 100%;
-    max-width: 250px; /* Tamanho ajustado que funcionou */
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-    animation: pulse-shine 3s infinite ease-in-out;
+    width: 100%;
+    max-width: 250px; /* Tamanho ajustado que funcionou */
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    animation: pulse-shine 3s infinite ease-in-out;
 }
 
 @keyframes pulse-shine {
-    0%, 100% {
-        transform: scale(1);
-        filter: brightness(100%);
-    }
-    50% {
-        transform: scale(1.05);
-        filter: brightness(115%);
-    }
+    0%, 100% {
+        transform: scale(1);
+        filter: brightness(100%);
+    }
+    50% {
+        transform: scale(1.05);
+        filter: brightness(115%);
+    }
 }
 
 #menu p {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 10px;
-    color: var(--cor-branca); 
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-top: 10px;
+    color: var(--cor-branca); 
 }
 
 /* --- Separador e Título de Seção --- */
 .section-divider {
-    border: 0;
-    height: 3px;
-    background: var(--cor-amarela);
-    margin: 30px auto;
-    width: 80%;
+    border: 0;
+    height: 3px;
+    background: var(--cor-amarela);
+    margin: 30px auto;
+    width: 80%;
 }
 
 .section-title {
-    color: var(--cor-amarela);
-    font-family: 'Impact', sans-serif;
-    font-size: 2.5em;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 0px #000;
+    color: var(--cor-amarela);
+    font-family: 'Impact', sans-serif;
+    font-size: 2.5em;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 0px #000;
 }
 
 /* --- Nova Seção de Bebidas --- */
 #beverages-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 0 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 0 10px;
 }
 
 .beverage-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--cor-branca);
-    color: var(--cor-texto);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--cor-sombra);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--cor-branca);
+    color: var(--cor-texto);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px var(--cor-sombra);
 }
 
 .beverage-item-info {
-    text-align: left;
+    text-align: left;
 }
 
 .beverage-item-info h4 {
-    font-size: 1.2em;
-    color: var(--cor-vermelha);
+    font-size: 1.2em;
+    color: var(--cor-vermelha);
 }
 
 .beverage-item-info span {
-    font-size: 1.1em;
-    font-weight: bold;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
 .add-beverage-btn {
-    background: var(--cor-verde);
-    color: var(--cor-branca);
-    border: none;
-    padding: 10px 15px;
-    font-size: 1em;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+    background: var(--cor-verde);
+    color: var(--cor-branca);
+    border: none;
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
 }
 .add-beverage-btn:hover {
-    background: #008747;
+    background: #008747;
 }
 
 /* --- Seções de View (Genérico) --- */
 .view-section {
-    background: var(--cor-branca);
-    color: var(--cor-texto);
-    max-width: 800px;
-    margin: 10px auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px var(--cor-sombra);
-
-    /* --- MELHORIA 1: Transições Suaves --- */
-    /* Por padrão, todas estão escondidas e invisíveis */
-    display: none;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.3s ease-in-out, visibility 0.3s;
+    background: var(--cor-branca);
+    color: var(--cor-texto);
+    max-width: 800px;
+    margin: 10px auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px var(--cor-sombra);
+    display: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0.3s;
 }
 
-/* A tela que estiver ativa (com a classe .active) ficará visível */
 .view-section.active {
-    display: block;
-    opacity: 1;
-    visibility: visible;
+    display: block;
+    opacity: 1;
+    visibility: visible;
 }
 
-/* Regra especial para o Menu, que não tem fundo branco */
 #menu {
-    background: none;
-    box-shadow: none;
+    background: none;
+    box-shadow: none;
 }
 
 
 /* --- Nova View: Montagem de Pastel --- */
 #pastel-builder-view h2 {
-    text-align: center;
-    color: var(--cor-vermelha);
+    text-align: center;
+    color: var(--cor-vermelha);
 }
 .builder-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .builder-flavors h3 {
-    font-size: 1.3em;
+    font-size: 1.3em;
 }
 .flavor-extra-info {
-    font-size: 0.9em;
-    color: #555;
-    margin-bottom: 15px;
+    font-size: 0.9em;
+    color: #555;
+    margin-bottom: 15px;
 }
 
 #sabores-lista {
-    max-height: 40vh;
-    overflow-y: auto;
-    padding-right: 10px;
-    border: 1px solid #eee;
-    padding: 10px;
-    border-radius: 5px;
+    max-height: 40vh;
+    overflow-y: auto;
+    padding-right: 10px;
+    border: 1px solid #eee;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .sabor-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 .sabor-item label {
-    font-size: 1.1em;
-    margin-left: 10px;
+    font-size: 1.1em;
+    margin-left: 10px;
 }
 .sabor-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    accent-color: var(--cor-vermelha);
+    width: 20px;
+    height: 20px;
+    accent-color: var(--cor-vermelha);
 }
 
 .builder-visual {
-    text-align: center;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
+    text-align: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
 }
 
 .builder-visual img {
-    width: 100%;
-    max-width: 200px; 
+    width: 100%;
+    max-width: 200px; 
 }
 
 #builder-summary {
-    margin-top: 15px;
+    margin-top: 15px;
 }
 #sabor-counter {
-    font-size: 1.2em;
-    font-weight: bold;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 #sabor-price-info {
-    font-size: 1.4em;
-    color: var(--cor-vermelha);
-    font-weight: bold;
-    margin-top: 10px;
+    font-size: 1.4em;
+    color: var(--cor-vermelha);
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .builder-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
 
 /* --- Carrinho de Compras --- */
 #cart-items { margin-bottom: 20px; }
 .cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
 }
 .cart-item-info { flex-grow: 1; }
 .cart-item-info h4 {
-    color: var(--cor-vermelha);
-    font-size: 1.2em;
+    color: var(--cor-vermelha);
+    font-size: 1.2em;
 }
 .cart-item-flavors {
-    font-size: 0.9em;
-    color: #555;
-    margin: 5px 0 0 10px;
-    list-style-type: disc;
+    font-size: 0.9em;
+    color: #555;
+    margin: 5px 0 0 10px;
+    list-style-type: disc;
 }
 .cart-item-actions {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
 }
 .quantity-btn {
-    background: var(--cor-amarela);
-    color: var(--cor-vermelha);
-    border: none;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 50%;
+    background: var(--cor-amarela);
+    color: var(--cor-vermelha);
+    border: none;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 50%;
 }
 .cart-item-actions span {
-    margin: 0 10px;
-    font-size: 1.1em;
+    margin: 0 10px;
+    font-size: 1.1em;
 }
 .remove-btn {
-    background: transparent;
-    border: none;
-    color: var(--cor-vermelha);
-    font-size: 1.5em;
-    cursor: pointer;
-    margin-left: 15px;
+    background: transparent;
+    border: none;
+    color: var(--cor-vermelha);
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-left: 15px;
 }
 .cart-total {
-    text-align: right;
-    font-size: 1.3em;
-    margin-top: 20px;
+    text-align: right;
+    font-size: 1.3em;
+    margin-top: 20px;
 }
 .cart-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    flex-wrap: wrap; 
-    gap: 10px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap; 
+    gap: 10px;
 }
 
 /* --- Formulário de Checkout --- */
 #checkout-form { display: flex; flex-direction: column; }
 
-/* --- MELHORIA 3: Resumo do Pedido Limpo --- */
 .checkout-summary-box {
-    background: #f9f9f9;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 10px 15px;
-    margin-bottom: 15px;
+    background: #f9f9f9;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
 }
 #checkout-summary { margin-bottom: 0; }
 .summary-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    font-weight: bold;
-    border-bottom: 1px dashed #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-weight: bold;
+    border-bottom: 1px dashed #ccc;
 }
 .summary-item:last-child {
-    border-bottom: none;
+    border-bottom: none;
 }
 .summary-item-flavors {
-    font-size: 0.9em;
-    color: #555;
-    margin-left: 20px;
-    width: 100%;
-    font-weight: normal; /* Sabores não precisam de negrito */
+    font-size: 0.9em;
+    color: #555;
+    margin-left: 20px;
+    width: 100%;
+    font-weight: normal; 
 }
 
 .checkout-total {
-    text-align: right;
-    font-size: 1.4em; /* Maior */
-    color: var(--cor-vermelha);
-    font-weight: bold;
-    margin: 10px 0;
+    text-align: right;
+    font-size: 1.4em; 
+    color: var(--cor-vermelha);
+    font-weight: bold;
+    margin: 10px 0;
 }
-/* Novo estilo para a taxa de entrega no resumo */
 #checkout-delivery-fee {
-    font-weight: bold;
-    color: var(--cor-vermelha);
+    font-weight: bold;
+    color: var(--cor-vermelha);
 }
 #checkout-form label {
-    margin-top: 15px;
-    font-weight: bold;
-}
-#checkout-form label {
-    margin-top: 15px;
-    font-weight: bold;
+    margin-top: 15px;
+    font-weight: bold;
 }
 #checkout-form input,
 #checkout-form select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+    width: 100%;
+    padding: 12px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
 }
 
 /* --- Botões --- */
 .btn-principal {
-    background: var(--cor-verde);
-    color: var(--cor-branca);
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 20px;
-    transition: background 0.3s ease;
+    background: var(--cor-verde);
+    color: var(--cor-branca);
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    margin-top: 20px;
+    transition: background 0.3s ease;
 }
 .btn-principal:hover {
-    background: #008747;
+    background: #008747;
 }
 
 /* Botão do Rodapé Fixo */
 #footer-btn {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: var(--cor-amarela);
-    color: var(--cor-vermelha);
-    text-align: center;
-    padding: 15px;
-    font-size: 1.3em;
-    font-weight: bold;
-    text-decoration: none;
-    z-index: 50;
-    box-shadow: 0 -2px 10px var(--cor-sombra);
-    animation: pulse-footer 2s infinite;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: var(--cor-amarela);
+    color: var(--cor-vermelha);
+    text-align: center;
+    padding: 15px;
+    font-size: 1.3em;
+    font-weight: bold;
+    text-decoration: none;
+    z-index: 50;
+    box-shadow: 0 -2px 10px var(--cor-sombra);
+    animation: pulse-footer 2s infinite;
 }
 @keyframes pulse-footer {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  s 100% { transform: scale(1); }
 }
 
 /* Botões secundários */
 #btn-voltar-menu,
 #btn-voltar-carrinho,
 #btn-cancel-pastel {
-    background: #eee;
-    color: var(--cor-texto);
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-top: 20px;
+    background: #eee;
+    color: var(--cor-texto);
+    padding: 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 20px;
 }
 
-/* --- MELHORIA 2: Estilos do Pop-up de Confirmação --- */
+/* --- Estilos do Pop-up de Confirmação --- */
 .modal-overlay {
-    display: none; /* Oculto por padrão */
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* Usar flex para centralizar o conteúdo */
-    align-items: center;
-    justify-content: center;
+    display: none; 
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
 }
 
 .modal-content {
-    background-color: var(--cor-branca);
-    color: var(--cor-texto);
-    padding: 30px;
-    border: 5px solid var(--cor-amarela);
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px var(--cor-sombra);
-    text-align: center;
-    animation: slideIn 0.4s ease;
+    background-color: var(--cor-branca);
+    color: var(--cor-texto);
+    padding: 30px;
+    border: 5px solid var(--cor-amarela);
+    border-radius: 10px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px var(--cor-sombra);
+    text-align: center;
+    animation: slideIn 0.4s ease;
 }
 
 .modal-content h2 {
-    color: var(--cor-verde);
+    color: var(--cor-verde);
 }
 
 .modal-content p {
-    font-size: 1.1em;
-    margin: 15px 0;
+    font-size: 1.1em;
+    margin: 15px 0;
 }
 
-/* Reutilizando a animação de slide-in */
 @keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
 
 /* --- Responsividade --- */
 @media (min-width: 768px) {
-    .builder-container {
-        flex-direction: row;
-    }
-    .builder-flavors {
-        flex: 2; 
-    }
-    .builder-visual {
-        flex: 1; 
-        position: sticky;
-        top: 20px;
-    }
+    .builder-container {
+        flex-direction: row;
+    }
+    .builder-flavors {
+        flex: 2; 
+    }
+    .builder-visual {
+        flex: 1; 
+        position: sticky;
+        top: 20px;
+    }
+}
+@media (max-width: 600px) {
+    h1 {
+        font-size: 2.5em;
+    }
+
+    /* --- CORREÇÃO ADICIONADA AQUI --- */
+    /* Força o texto "Clique no pastel" a ficar preto no celular */
+    #menu p {
+        color: var(--cor-texto) !important; /* cor-texto = preto */
+    }
+    /* --- FIM DA CORREÇÃO --- */
+
+    .view-section {
+        margin: 10px;
+        padding: 15px;
+    }
+    /* No mobile, #menu precisa ter fundo branco senão fica estranho */
+    #menu {
+        background: var(--cor-branca);
+        box-shadow: 0 4px 10px var(--cor-sombra);
+    }
+  s .cart-actions {
+        flex-direction: column;
+    }
+    .cart-actions button {
+        width: 100%;
+    }
+    /* Ajuste no modal para telas pequenas */
+    .modal-content {
+        padding: 20px;
+    }
 }
 
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2.5em;
-    }
-    .view-section {
-        margin: 10px;
-        padding: 15px;
-    }
-    /* No mobile, #menu precisa ter fundo branco senão fica estranho */
-    #menu {
-        background: var(--cor-branca);
-        box-shadow: 0 4px 10px var(--cor-sombra);
-    }
-    .cart-actions {
-        flex-direction: column;
-    }
-    .cart-actions button {
-        width: 100%;
-    }
-    /* Ajuste no modal para telas pequenas */
-    .modal-content {
-        padding: 20px;
-    }
-}
+
 /* --- Estilo do Loading --- */
 .loading-text {
-    font-size: 1.1em;
-    font-style: italic;
-    color: #555;
-    text-align: center;
-    padding: 20px;
+    font-size: 1.1em;
+    font-style: italic;
+    color: #555;
+    text-align: center;
+    padding: 20px;
 }

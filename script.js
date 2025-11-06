@@ -3,6 +3,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CONFIGURAÇÃO ---
     const numeroWhatsApp = "5581991251583"; 
     const taxaDeEntrega = 2.00;
+    
+    // 🌟 MÁGICA AQUI: O "ADMIN" É A SUA PLANILHA 🌟
+    // Link .csv que você publicou
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHC-Br97ylD79ttDTEtPmRQ2KLm5BbGu79cJjofNIrJYM-rALvrLOjDE-_QZpHpaxtLR38eRd4kqjd/pub?output=csv';
 
     // --- LÓGICA DE PREÇO DO PASTEL ---
@@ -10,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saboresGratis = 4;
     const precoPorSaborExtra = 1.00;
 
-    // --- BASE DE DADOS (Vem da Planilha) ---
+    // --- BASE DE DADOS (Agora vem da Planilha) ---
     let menuSabores = [];
     let menuBebidas = [];
 
@@ -20,7 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let tipoEntregaAtual = ""; 
 
     // --- SELETORES DOM ---
-    // (Todos os seletores DOM permanecem os mesmos... omitidos aqui por brevidade)
     const pastelImage = document.getElementById('pastel-image');
     const views = document.querySelectorAll('.view-section');
     const beveragesList = document.getElementById('beverages-list');
@@ -51,9 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- FUNÇÕES DE RENDERIZAÇÃO ---
-    // (renderizarSabores, renderizarBebidas, calcularSubtotal, 
-    // atualizarTotalCheckout, renderizarCarrinho, renderizarCheckout 
-    // ... permanecem as mesmas que a V5.0)
 
     function renderizarSabores() {
         saboresLista.innerHTML = '';
@@ -188,8 +187,6 @@ document.addEventListener('DOMContentLoaded', () => {
         atualizarTotalCheckout();
     }
 
-
-    // --- LÓGICA DE NAVEGAÇÃO ---
     function mostrarView(viewId) {
         const currentView = document.getElementById(activeView);
         if (currentView) {
@@ -204,12 +201,6 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo(0, 0);
     }
 
-    // --- LÓGICA DE NEGÓCIO ---
-    // (atualizarPrecoPastel, adicionarPastelAoCarrinho, resetarConstrutor, 
-    // adicionarBebidaAoCarrinho, atualizarCarrinho, handleDeliveryTypeChange,
-    // enviarPedidoWhatsApp, abrirModalConfirmacao, fecharModalConfirmacao...
-    // permanecem as mesmas que a V5.0)
-    
     let currentPastel = {
         sabores: [],
         preco: pastelPrecoBase
@@ -419,7 +410,6 @@ ${listaItens}
     }
 
     // --- EVENT LISTENERS ---
-    // (Todos os event listeners permanecem os mesmos)
     
     pastelImage.addEventListener('click', () => mostrarView('pastel-builder-view'));
     btnVoltarMenu.addEventListener('click', () => mostrarView('menu'));
@@ -453,12 +443,10 @@ ${listaItens}
     deliveryTypeSelect.addEventListener('change', handleDeliveryTypeChange);
 
     
-    // --- 🌟 FUNÇÃO DE INICIALIZAÇÃO ATUALIZADA 🌟 ---
+    // --- FUNÇÃO DE INICIALIZAÇÃO (Lendo do Google) ---
     
-    // ATUALIZADO: Agora é "à prova de erros" de maiúsculas/minúsculas
     function parseCSV(text) {
         const lines = text.split('\n');
-        // 1. Limpa o cabeçalho e CONVERTE PARA MINÚSCULAS
         const header = lines[0].split(',').map(h => h.trim().toLowerCase());
         const data = [];
         
@@ -467,7 +455,7 @@ ${listaItens}
             if (values.length === header.length) {
                 const entry = {};
                 for (let j = 0; j < header.length; j++) {
-                    entry[header[j]] = values[j].trim(); // Os valores não precisam ser minúsculos aqui
+                    entry[header[j]] = values[j].trim();
                 }
                 data.push(entry);
             }
@@ -475,45 +463,39 @@ ${listaItens}
         return data;
     }
 
-    // ATUALIZADO: Agora procura por cabeçalhos e valores minúsculos
     async function carregarCardapio() {
         try {
-            // O cache do fetch pode ser um problema, adicionamos um parâmetro aleatório
-            // para "enganar" o cache e sempre pegar a versão mais nova.
             const url = new URL(GOOGLE_SHEET_URL);
-            url.searchParams.append('t', new Date().getTime()); // Força a busca de uma nova versão
+            url.searchParams.append('t', new Date().getTime()); 
             
             const response = await fetch(url);
             if (!response.ok) {
-                throw new Error('Erro ao carregar planilha');
+                throw new Error('Erro ao carregar planilha (verifique o link .csv)');
             }
             
             const csvText = await response.text();
             const data = parseCSV(csvText);
             
-            // 2. Filtra usando o cabeçalho 'estoque' (minúsculo) e o valor 'sim' (minúsculo)
-            const menuAtivo = data.filter(item => item.estoque.toLowerCase() === 'sim');
+            const menuAtivo = data.filter(item => item.estoque && item.estoque.toLowerCase() === 'sim');
 
-            // 3. Filtra os tipos usando 'tipo' (minúsculo)
             menuSabores = menuAtivo
-                .filter(item => item.tipo.toLowerCase() === 'pastel')
-                .map(item => ({ nome: item.nome })); // 'nome' vem da planilha
+                .filter(item => item.tipo && item.tipo.toLowerCase() === 'pastel')
+                .map(item => ({ nome: item.nome }));
             
             menuBebidas = menuAtivo
-                .filter(item => item.tipo.toLowerCase() === 'bebida')
+                .filter(item => item.tipo && item.tipo.toLowerCase() === 'bebida')
                 .map(item => ({
                     id: item.nome, 
                     nome: item.nome,
-                    preco: parseFloat(item.preco) // 'preco' vem da planilha
+                    preco: parseFloat(item.preco)
                 }));
             
-            // Renderiza o cardápio
             renderizarSabores();
             renderizarBebidas();
 
         } catch (error) {
             console.error(error);
-            bebidasLoading.textContent = 'Erro ao carregar o cardápio. Tente recarregar a página.';
+            bebidasLoading.textContent = `Erro ao carregar o cardápio. Tente recarregar a página.`;
             bebidasLoading.style.color = 'var(--cor-vermelha)';
             saboresLoading.textContent = 'Erro ao carregar sabores.';
             saboresLoading.style.color = 'var(--cor-vermelha)';
@@ -522,4 +504,5 @@ ${listaItens}
 
     // --- INICIALIZAÇÃO ---
     carregarCardapio();
+    renderizarCarrinho(); // Corrige o bug do botão do rodapé
 });
