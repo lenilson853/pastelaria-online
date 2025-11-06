@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pastel Frito na Hora!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Impact&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <h1>PASTEL FRITO NA HORA!</h1>
+    </header>
+
+    <main>
+        <section id="menu" class="view-section active">
+            <img src="images/pastel.png" 
+                 alt="Pastel Frito na Hora" 
+                 id="pastel-image">
+            
+            <p>Clique no pastel para montar o seu</p>
+            
+            <hr class="section-divider">
+
+            <h2 class="section-title">Bebidas</h2>
+            <div id="beverages-list">
+                <p id="bebidas-loading" class="loading-text">Carregando cardápio de bebidas...</p>
+            </div>
+        </section> <section id="pastel-builder-view" class="view-section">
+            <h2>Monte seu Pastel</h2>
+            <div class="builder-container">
+                <div class="builder-flavors">
+                    <h3>Escolha até 4 sabores (Preço Base: R$ 6,00)</h3>
+                    <p class="flavor-extra-info">Sabores extras: + R$ 1,00 cada</p>
+                    <form id="sabores-form">
+                        <div id="sabores-lista">
+                            <p id="sabores-loading" class="loading-text">Carregando sabores...</p>
+                        </div>
+                    </form>
+                </div>
+                <div class="builder-visual">
+                    <img src="images/pastel.png" alt="Pastel">
+                    <div id="builder-summary">
+                        <h4 id="sabor-counter">0 sabores selecionados</h4>
+                        <h3 id="sabor-price-info">Preço deste pastel: R$ 6,00</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="builder-actions">
+                <button id="btn-cancel-pastel">Cancelar</button>
+                <button id="btn-add-pastel-to-cart" class="btn-principal">Adicionar ao Carrinho</button>
+            </div>
+        </section> <section id="cart-view" class="view-section">
+            <h2>Meu Carrinho 🛒</h2>
+            <div id="cart-items">
+                </div>
+            <div class="cart-total">
+                <h3>Total: <span id="cart-total-price">R$ 0,00</span></h3>
+            </div>
+            <div class="cart-actions">
+                <button id="btn-voltar-menu">Continuar Comprando</button>
+                <button id="btn-finalizar-pedido" class="btn-principal">Finalizar Pedido</button>
+            </div>
+        </section> <section id="checkout-view" class="view-section">
+            <h2>Finalizar Pedido 💳</h2>
+            <form id="checkout-form">
+                <h3>Resumo do Pedido</h3>
+                <div class="checkout-summary-box">
+                    <div id="checkout-summary"></div>
+                    <div id="checkout-delivery-fee" class="summary-item" style="display: none;">
+                        <span>Taxa de Entrega</span>
+                        <span id="delivery-fee-value">R$ 2,00</span>
+                    </div>
+                </div>
+                <h3 class="checkout-total">Total: <span id="checkout-total-price">R$ 0,00</span></h3>
+                
+                <hr>
+
+                <h3>Seus Dados</h3>
+                
+                <label for="delivery-type">Tipo de Entrega:</label>
+                <select id="delivery-type" required>
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="delivery">Entrega (Delivery)</option>
+                    <option value="pickup">Retirada no Estabelecimento</option>
+                </select>
+
+                <label for="cliente-nome">Seu Nome:</label>
+                <input type="text" id="cliente-nome" placeholder="Como devemos te chamar?" required>
+                
+                <div id="address-wrapper">
+                    <label for="cliente-endereco">Endereço de Entrega:</label>
+                    <input type="text" id="cliente-endereco" placeholder="Rua, Número, Bairro">
+                </div>
+                
+                <label for="cliente-pagamento">Forma de Pagamento:</label>
+                <select id="cliente-pagamento" required>
+                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="Pix">Pix</option>
+                    <option value="Dinheiro">Dinheiro (levar troco?)</option>
+                    <option value="Cartão de Crédito">Cartão de Crédito</option>
+                    <option value="Cartão de Débito">Cartão de Débito</option>
+                </select>
+                
+                <button type="submit" id="btn-enviar-whatsapp" class="btn-principal">
+                    Enviar Pedido pelo WhatsApp
+                </button>
+                <button type="button" id="btn-voltar-carrinho">Voltar ao Carrinho</button>
+            </form>
+        </section> </main> <a href="#menu" id="footer-btn">
+        Ver Cardápio
+    </a>
+    
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h2>Pedido Enviado! ✅</h2>
+            <p>Seu pedido foi enviado. Agora é só aguardar que vamos fritar na hora!</p>
+            <button id="btn-close-confirm" class="btn-principal">Fazer Novo Pedido</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
