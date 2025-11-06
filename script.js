@@ -1,11 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- CONFIGURAÇÃO ---
-    const numeroWhatsApp = "5581991251583"; 
+    const numeroWhatsApp = "5581999999999"; 
     const taxaDeEntrega = 2.00;
-    
-    // 🌟 MÁGICA AQUI: O "ADMIN" É A SUA PLANILHA 🌟
-    // Link .csv que você publicou
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHC-Br97ylD79ttDTEtPmRQ2KLm5BbGu79cJjofNIrJYM-rALvrLOjDE-_QZpHpaxtLR38eRd4kqjd/pub?output=csv';
 
     // --- LÓGICA DE PREÇO DO PASTEL ---
@@ -13,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saboresGratis = 4;
     const precoPorSaborExtra = 1.00;
 
-    // --- BASE DE DADOS (Agora vem da Planilha) ---
+    // --- BASE DE DADOS (Vem da Planilha) ---
     let menuSabores = [];
     let menuBebidas = [];
 
@@ -53,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- FUNÇÕES DE RENDERIZAÇÃO ---
-
     function renderizarSabores() {
         saboresLista.innerHTML = '';
         menuSabores.forEach((sabor, index) => {
@@ -186,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         atualizarTotalCheckout();
     }
+
 
     function mostrarView(viewId) {
         const currentView = document.getElementById(activeView);
@@ -372,7 +369,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 listaItens += `*${item.quantidade}x Pastel Customizado* (R$ ${subtotal.toFixed(2)})\n`;
                 listaItens += `  (${item.sabores.join(', ')})\n`;
             } else {
-                listaItens += `*${item.quantidade}x ${item.nome}* (R$ ${subtotal.toFixed(2)})\n`;
+                listaItens += `*${item.quantidade}x ${item.nome}* (RS ${subtotal.toFixed(2)})\n`;
             }
         });
 

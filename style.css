@@ -7,27 +7,23 @@
     --cor-sombra: rgba(0, 0, 0, 0.2);
     --cor-verde: #00A859;
 }
-
 /* --- Estilos Globais --- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
 body {
     font-family: 'Roboto', sans-serif;
     background-color: var(--cor-vermelha);
     color: var(--cor-branca);
     padding-bottom: 70px; 
 }
-
 /* --- Cabeçalho e Título --- */
 header {
     padding: 20px;
     text-align: center;
 }
-
 h1 {
     font-family: 'Impact', sans-serif;
     font-size: 3.5em;
@@ -35,11 +31,9 @@ h1 {
     text-shadow: 3px 3px 0px #000000;
     letter-spacing: 1px;
 }
-
 h2 {
     margin-bottom: 20px;
 }
-
 /* --- Seção Principal (Menu) --- */
 #menu {
     text-align: center;
@@ -47,10 +41,9 @@ h2 {
     background: none;
     box-shadow: none;
 }
-
 #pastel-image {
     width: 100%;
-    max-width: 250px; /* Tamanho ajustado que funcionou */
+    max-width: 250px; /* Esta regra limita o tamanho da imagem */
     height: auto;
     display: block;
     margin: 0 auto;
@@ -58,7 +51,6 @@ h2 {
     cursor: pointer;
     animation: pulse-shine 3s infinite ease-in-out;
 }
-
 @keyframes pulse-shine {
     0%, 100% {
         transform: scale(1);
@@ -69,14 +61,12 @@ h2 {
         filter: brightness(115%);
     }
 }
-
 #menu p {
     font-size: 1.2em;
     font-weight: bold;
     margin-top: 10px;
     color: var(--cor-branca); 
 }
-
 /* --- Separador e Título de Seção --- */
 .section-divider {
     border: 0;
@@ -85,7 +75,6 @@ h2 {
     margin: 30px auto;
     width: 80%;
 }
-
 .section-title {
     color: var(--cor-amarela);
     font-family: 'Impact', sans-serif;
@@ -93,7 +82,6 @@ h2 {
     letter-spacing: 1px;
     text-shadow: 2px 2px 0px #000;
 }
-
 /* --- Nova Seção de Bebidas --- */
 #beverages-list {
     display: flex;
@@ -103,7 +91,6 @@ h2 {
     max-width: 600px;
     padding: 0 10px;
 }
-
 .beverage-item {
     display: flex;
     justify-content: space-between;
@@ -114,21 +101,17 @@ h2 {
     border-radius: 8px;
     box-shadow: 0 2px 5px var(--cor-sombra);
 }
-
 .beverage-item-info {
     text-align: left;
 }
-
 .beverage-item-info h4 {
     font-size: 1.2em;
     color: var(--cor-vermelha);
 }
-
 .beverage-item-info span {
     font-size: 1.1em;
     font-weight: bold;
 }
-
 .add-beverage-btn {
     background: var(--cor-verde);
     color: var(--cor-branca);
@@ -143,7 +126,6 @@ h2 {
 .add-beverage-btn:hover {
     background: #008747;
 }
-
 /* --- Seções de View (Genérico) --- */
 .view-section {
     background: var(--cor-branca);
@@ -158,19 +140,15 @@ h2 {
     visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s;
 }
-
 .view-section.active {
     display: block;
     opacity: 1;
     visibility: visible;
 }
-
 #menu {
     background: none;
     box-shadow: none;
 }
-
-
 /* --- Nova View: Montagem de Pastel --- */
 #pastel-builder-view h2 {
     text-align: center;
@@ -181,7 +159,6 @@ h2 {
     flex-direction: column;
     gap: 20px;
 }
-
 .builder-flavors h3 {
     font-size: 1.3em;
 }
@@ -190,7 +167,6 @@ h2 {
     color: #555;
     margin-bottom: 15px;
 }
-
 #sabores-lista {
     max-height: 40vh;
     overflow-y: auto;
@@ -199,7 +175,6 @@ h2 {
     padding: 10px;
     border-radius: 5px;
 }
-
 .sabor-item {
     display: flex;
     align-items: center;
@@ -215,19 +190,16 @@ h2 {
     height: 20px;
     accent-color: var(--cor-vermelha);
 }
-
 .builder-visual {
     text-align: center;
     padding: 20px;
     background: #f9f9f9;
     border-radius: 8px;
 }
-
 .builder-visual img {
     width: 100%;
     max-width: 200px; 
 }
-
 #builder-summary {
     margin-top: 15px;
 }
@@ -241,14 +213,11 @@ h2 {
     font-weight: bold;
     margin-top: 10px;
 }
-
 .builder-actions {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
 }
-
-
 /* --- Carrinho de Compras --- */
 #cart-items { margin-bottom: 20px; }
 .cart-item {
@@ -305,14 +274,12 @@ h2 {
 .cart-actions {
     display: flex;
     justify-content: space-between;
-    margin-top: 20px;
+  t margin-top: 20px;
     flex-wrap: wrap; 
     gap: 10px;
 }
-
 /* --- Formulário de Checkout --- */
 #checkout-form { display: flex; flex-direction: column; }
-
 .checkout-summary-box {
     background: #f9f9f9;
     border: 1px solid #eee;
@@ -338,7 +305,6 @@ h2 {
     width: 100%;
     font-weight: normal; 
 }
-
 .checkout-total {
     text-align: right;
     font-size: 1.4em; 
@@ -363,7 +329,6 @@ h2 {
     border-radius: 5px;
     font-size: 1em;
 }
-
 /* --- Botões --- */
 .btn-principal {
     background: var(--cor-verde);
@@ -381,7 +346,6 @@ h2 {
 .btn-principal:hover {
     background: #008747;
 }
-
 /* Botão do Rodapé Fixo */
 #footer-btn {
     position: fixed;
@@ -396,15 +360,14 @@ h2 {
     font-weight: bold;
     text-decoration: none;
     z-index: 50;
-    box-shadow: 0 -2px 10px var(--cor-sombra);
+  t box-shadow: 0 -2px 10px var(--cor-sombra);
     animation: pulse-footer 2s infinite;
 }
 @keyframes pulse-footer {
     0% { transform: scale(1); }
     50% { transform: scale(1.02); }
-  s 100% { transform: scale(1); }
+    100% { transform: scale(1); }
 }
-
 /* Botões secundários */
 #btn-voltar-menu,
 #btn-voltar-carrinho,
@@ -418,7 +381,6 @@ h2 {
     font-size: 1em;
     margin-top: 20px;
 }
-
 /* --- Estilos do Pop-up de Confirmação --- */
 .modal-overlay {
     display: none; 
@@ -433,7 +395,6 @@ h2 {
     align-items: center;
     justify-content: center;
 }
-
 .modal-content {
     background-color: var(--cor-branca);
     color: var(--cor-texto);
@@ -446,22 +407,17 @@ h2 {
     text-align: center;
     animation: slideIn 0.4s ease;
 }
-
 .modal-content h2 {
     color: var(--cor-verde);
 }
-
 .modal-content p {
     font-size: 1.1em;
     margin: 15px 0;
 }
-
 @keyframes slideIn {
     from { transform: translateY(-50px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
-
-
 /* --- Responsividade --- */
 @media (min-width: 768px) {
     .builder-container {
@@ -497,7 +453,7 @@ h2 {
         background: var(--cor-branca);
         box-shadow: 0 4px 10px var(--cor-sombra);
     }
-  s .cart-actions {
+    .cart-actions {
         flex-direction: column;
     }
     .cart-actions button {
@@ -508,8 +464,6 @@ h2 {
         padding: 20px;
     }
 }
-
-
 /* --- Estilo do Loading --- */
 .loading-text {
     font-size: 1.1em;
