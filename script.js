@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // --- CONFIGURAÇÃO ---
-    const numeroWhatsApp = "5581999999999"; 
+    const numeroWhatsApp = "5581991251583"; 
     const taxaDeEntrega = 2.00;
     // Link da sua planilha
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQHC-Br97ylD79ttDTEtPmRQ2KLm5BbGu79cJjofNIrJYM-rALvrLOjDE-_QZpHpaxtLR38eRd4kqjd/pub?output=csv';
