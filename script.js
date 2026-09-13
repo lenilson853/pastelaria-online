@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const numeroWhatsApp = "5581991251583"; 
+    const numeroWhatsApp = "5581991110325";
     const taxaDeEntrega = 3.00;
     
     // O seu link da planilha
