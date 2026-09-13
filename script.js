@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const numeroWhatsApp = "5581991110325";
+    const numeroWhatsApp = "5581991110325"; bre de colocar o número do seu cliente aqui!
     const taxaDeEntrega = 3.00;
     
     // O seu link da planilha
@@ -274,6 +274,15 @@ document.addEventListener('DOMContentLoaded', () => {
         atualizarTotalCheckout();
     }
 
+    // --- FUNÇÃO DE GERAR NÚMERO SEQUENCIAL DO PEDIDO ---
+    function proximoNumeroPedido() {
+        let ultimoPedido = localStorage.getItem('gvm_ultimo_pedido');
+        let proximo = ultimoPedido ? parseInt(ultimoPedido) + 1 : 1;
+        localStorage.setItem('gvm_ultimo_pedido', proximo);
+        // Formata para ter sempre 3 dígitos (ex: 001, 002, 010...)
+        return String(proximo).padStart(3, '0');
+    }
+
     function enviarPedidoWhatsApp(event) {
         event.preventDefault();
 
@@ -284,6 +293,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (tipoEntregaAtual === 'delivery' && !endereco) { alert("Por favor, preencha seu Endereço de Entrega."); return; }
         if (!nome || !pagamento) { alert("Por favor, preencha seu Nome e a Forma de Pagamento."); return; }
+
+        let numeroDoPedido = proximoNumeroPedido(); // 👈 Gera o número sequencial aqui!
 
         let total = calcularSubtotal();
         let listaItens = '';
@@ -308,15 +319,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const mensagem = `
-🍴 *Novo Pedido - GVM Pastel da Hora!*
+🔥 *PEDIDO #${numeroDoPedido} - GVM Pastel da Hora!* 🔥
 Cliente: *${nome}*
 ${infoEntrega}
 ${infoPagamento}
 --------------------------------
-*Pedido:*
+*Itens do Pedido:*
 ${listaItens}
 --------------------------------
-*Total: R$ ${total.toFixed(2)}*
+*Total a Pagar: R$ ${total.toFixed(2)}*
         `;
         const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem.trim())}`;
         window.open(urlWhatsApp, '_blank');
@@ -351,7 +362,6 @@ ${listaItens}
     btnCloseConfirm.addEventListener('click', fecharModalConfirmacao);
     deliveryTypeSelect.addEventListener('change', handleDeliveryTypeChange);
 
-    // --- PARSER CSV BLINDADO CONTRA VÍRGULAS INTERNAS ---
     function parseCSV(text) {
         const textoLimpo = text.replace(/\r/g, '').replace(/^\uFEFF/, ''); 
         const lines = textoLimpo.split('\n').filter(linha => linha.trim() !== '');
@@ -369,7 +379,6 @@ ${listaItens}
             let atual = '';
             let dentroDeParenteses = false;
             
-            // Separa por vírgula, mas respeita vírgulas dentro de parênteses (ex: nomes com ingredientes)
             for (let char of linha) {
                 if (char === '(') dentroDeParenteses = true;
                 if (char === ')') dentroDeParenteses = false;
