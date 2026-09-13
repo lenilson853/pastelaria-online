@@ -3,36 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastel Frito na Hora!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Impact&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    
+    <title>GVM Pastel da Hora</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,800;1,800&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
-        <h1>PASTEL FRITO NA HORA!</h1>
+        <h1>GVM PASTEL DA HORA</h1>
     </header>
 
     <main>
+        <!-- 🏠 PÁGINA PRINCIPAL (CARDÁPIO) -->
         <section id="menu" class="view-section active">
-            <img src="images/pastel.png" 
-                 alt="Pastel Frito na Hora" 
-                 id="pastel-image">
-            
+            <img src="images/pastel.png" alt="GVM Pastel da Hora" id="pastel-image">
             <p>Clique no pastel para montar o seu</p>
-            
             <hr class="section-divider">
-
-            <h2 class="section-title">Bebidas</h2>
+            <h2 class="section-title">Acompanhamentos Extras</h2>
             <div id="beverages-list">
-                <p id="bebidas-loading" class="loading-text">Carregando cardápio de bebidas...</p>
+                <p id="bebidas-loading" class="loading-text">Carregando cardápio...</p>
             </div>
-        </section> <section id="pastel-builder-view" class="view-section">
+        </section> 
+        
+        <!-- 🛠️ VIEW: MONTAGEM DO PASTEL -->
+        <section id="pastel-builder-view" class="view-section">
             <h2>Monte seu Pastel</h2>
             <div class="builder-container">
                 <div class="builder-flavors">
-                    <h3>Escolha até 4 sabores (Preço Base: R$ 6,00)</h3>
+                    <h3>Escolha até 4 sabores (Preço Base: R$ 8,00)</h3>
                     <p class="flavor-extra-info">Sabores extras: + R$ 1,00 cada</p>
                     <form id="sabores-form">
                         <div id="sabores-lista">
@@ -44,7 +42,7 @@
                     <img src="images/pastel.png" alt="Pastel">
                     <div id="builder-summary">
                         <h4 id="sabor-counter">0 sabores selecionados</h4>
-                        <h3 id="sabor-price-info">Preço deste pastel: R$ 6,00</h3>
+                        <h3 id="sabor-price-info">Preço deste pastel: R$ 8,00</h3>
                     </div>
                 </div>
             </div>
@@ -52,10 +50,12 @@
                 <button id="btn-cancel-pastel">Cancelar</button>
                 <button id="btn-add-pastel-to-cart" class="btn-principal">Adicionar ao Carrinho</button>
             </div>
-        </section> <section id="cart-view" class="view-section">
+        </section> 
+        
+        <!-- 🛒 CARRINHO DE COMPRAS -->
+        <section id="cart-view" class="view-section">
             <h2>Meu Carrinho 🛒</h2>
-            <div id="cart-items">
-                </div>
+            <div id="cart-items"></div>
             <div class="cart-total">
                 <h3>Total: <span id="cart-total-price">R$ 0,00</span></h3>
             </div>
@@ -63,7 +63,10 @@
                 <button id="btn-voltar-menu">Continuar Comprando</button>
                 <button id="btn-finalizar-pedido" class="btn-principal">Finalizar Pedido</button>
             </div>
-        </section> <section id="checkout-view" class="view-section">
+        </section> 
+        
+        <!-- 💳 PÁGINA DE CHECKOUT -->
+        <section id="checkout-view" class="view-section">
             <h2>Finalizar Pedido 💳</h2>
             <form id="checkout-form">
                 <h3>Resumo do Pedido</h3>
@@ -75,18 +78,16 @@
                     </div>
                 </div>
                 <h3 class="checkout-total">Total: <span id="checkout-total-price">R$ 0,00</span></h3>
-                
                 <hr>
-
-                <h3>Seus Dados</h3>
                 
+                <h3>Seus Dados</h3>
                 <label for="delivery-type">Tipo de Entrega:</label>
                 <select id="delivery-type" required>
                     <option value="" disabled selected>Selecione uma opção</option>
                     <option value="delivery">Entrega (Delivery)</option>
                     <option value="pickup">Retirada no Estabelecimento</option>
                 </select>
-
+                
                 <label for="cliente-nome">Seu Nome:</label>
                 <input type="text" id="cliente-nome" placeholder="Como devemos te chamar?" required>
                 
@@ -104,14 +105,19 @@
                     <option value="Cartão de Débito">Cartão de Débito</option>
                 </select>
                 
-                <button type="submit" id="btn-enviar-whatsapp" class="btn-principal">
-                    Enviar Pedido pelo WhatsApp
-                </button>
+                <!-- 👇 NOVO CAMPO DE TROCO ESCONDIDO 👇 -->
+                <div id="troco-wrapper" style="display: none;">
+                    <label for="cliente-troco">Troco para quanto?</label>
+                    <input type="number" id="cliente-troco" placeholder="Ex: 50" min="0" step="0.50">
+                </div>
+                
+                <button type="submit" id="btn-enviar-whatsapp" class="btn-principal">Enviar Pedido pelo WhatsApp</button>
                 <button type="button" id="btn-voltar-carrinho">Voltar ao Carrinho</button>
             </form>
-        </section> </main> <a href="#menu" id="footer-btn">
-        Ver Cardápio
-    </a>
+        </section> 
+    </main> 
+    
+    <a href="#menu" id="footer-btn">Ver Cardápio</a>
     
     <div id="confirm-modal" class="modal-overlay">
         <div class="modal-content">

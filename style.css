@@ -1,511 +1,181 @@
-/* --- Variáveis de Cor --- */
 :root {
-    --cor-vermelha: #A91D22;
-    --cor-amarela: #FAD02E;
-    --cor-branca: #FFFFFF;
-    --cor-texto: #333333;
-    --cor-sombra: rgba(0, 0, 0, 0.2);
-    --cor-verde: #00A859;
+    --cor-vermelha: #A91D22; --cor-vermelha-escura: #7A1115;
+    --cor-amarela: #FAD02E; --cor-amarela-hover: #F2C111;
+    --cor-branca: #FFFFFF; --cor-fundo-cartao: #F8F9FA;
+    --cor-texto: #2C3E50; --cor-texto-secundario: #7F8C8D;
+    --cor-sombra: rgba(0, 0, 0, 0.15); --cor-sombra-forte: rgba(0, 0, 0, 0.3);
+    --cor-verde: #00B862; --cor-verde-escuro: #008F4C;
 }
 
-/* --- Estilos Globais --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: var(--cor-vermelha);
-    color: var(--cor-branca);
-    padding-bottom: 70px; 
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.85)), url('images/fundo.jpg');
+    background-size: cover; background-position: center center;
+    background-attachment: fixed; color: var(--cor-branca); padding-bottom: 80px; 
 }
 
-/* --- Cabeçalho e Título --- */
-header {
-    padding: 20px;
-    text-align: center;
-}
+header { padding: 30px 10px; text-align: center; }
 
+/* 👇 NOVA FONTE APLICADA AOS TÍTULOS 👇 */
 h1 {
-    font-family: 'Impact', sans-serif;
-    font-size: 3.5em;
-    color: var(--cor-amarela);
-    text-shadow: 3px 3px 0px #000000;
-    letter-spacing: 1px;
+    font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic; 
+    font-size: 3.5em; color: var(--cor-amarela);
+    text-shadow: 4px 4px 0px rgba(0,0,0,0.8); letter-spacing: 1px;
+    transform: rotate(-3deg); margin: 0;
 }
+h2 { margin-bottom: 20px; }
 
-h2 {
-    margin-bottom: 20px;
-}
-
-/* --- Seção Principal (Menu) --- */
-#menu {
-    text-align: center;
-    padding: 0; 
-    background: none;
-    box-shadow: none;
-}
-
+#menu { text-align: center; padding: 0; background: none; box-shadow: none; }
 #pastel-image {
-    width: 100%;
-    max-width: 250px; /* Esta regra limita o tamanho da imagem */
-    height: auto;
-    display: block;
-    margin: 0 auto;
-    transition: transform 0.3s ease;
-    cursor: pointer;
+    width: 100%; max-width: 260px; height: auto; display: block; margin: 0 auto;
+    transition: transform 0.3s ease; cursor: pointer;
     animation: pulse-shine 3s infinite ease-in-out;
+    filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4));
 }
 
 @keyframes pulse-shine {
-    0%, 100% {
-        transform: scale(1);
-        filter: brightness(100%);
-    }
-    50% {
-        transform: scale(1.05);
-        filter: brightness(115%);
-    }
+    0%, 100% { transform: scale(1); filter: drop-shadow(0px 10px 15px rgba(0,0,0,0.4)) brightness(100%); }
+    50% { transform: scale(1.05); filter: drop-shadow(0px 15px 20px rgba(0,0,0,0.5)) brightness(110%); }
 }
 
-#menu p {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin-top: 10px;
-    color: var(--cor-branca); /* Texto fica branco no PC (fundo vermelho) */
+#menu p { font-size: 1.2em; font-weight: bold; margin-top: 15px; color: var(--cor-branca); text-transform: uppercase; letter-spacing: 1px; }
+
+.section-divider { border: 0; height: 4px; background: var(--cor-amarela); margin: 40px auto; width: 60%; border-radius: 2px; }
+
+/* 👇 NOVA FONTE APLICADA AOS SUBTÍTULOS 👇 */
+.section-title { 
+    color: var(--cor-amarela); font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic; 
+    font-size: 2.5em; letter-spacing: 1px; text-shadow: 2px 2px 0px rgba(0,0,0,0.6); margin-bottom: 20px; 
 }
 
-/* --- Separador e Título de Seção --- */
-.section-divider {
-    border: 0;
-    height: 3px;
-    background: var(--cor-amarela);
-    margin: 30px auto;
-    width: 80%;
-}
+#beverages-list { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px auto; max-width: 1000px; padding: 0 15px; }
 
-.section-title {
-    color: var(--cor-amarela);
-    font-family: 'Impact', sans-serif;
-    font-size: 2.5em;
-    letter-spacing: 1px;
-    text-shadow: 2px 2px 0px #000;
-}
-
-/* --- Nova Seção de Bebidas --- */
-#beverages-list {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 0 10px;
+/* 👇 NOVA FONTE APLICADA ÀS CATEGORIAS 👇 */
+#beverages-list h3 {
+    grid-column: 1 / -1; background: rgba(0, 0, 0, 0.4); padding: 10px 30px; border-radius: 8px;
+    margin: 30px auto 10px auto; border-bottom: 4px solid var(--cor-amarela); text-align: center; width: fit-content;
+    font-family: 'Kanit', sans-serif; font-weight: 800; font-style: italic; font-size: 1.8em; letter-spacing: 1px;
 }
 
 .beverage-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: var(--cor-branca);
-    color: var(--cor-texto);
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px var(--cor-sombra);
+    display: flex; flex-direction: row; justify-content: space-between; align-items: center; text-align: left;
+    background: var(--cor-fundo-cartao); color: var(--cor-texto); padding: 20px; border-radius: 12px; 
+    box-shadow: 0 4px 6px var(--cor-sombra); transition: transform 0.2s ease, box-shadow 0.2s ease; border: 1px solid rgba(0,0,0,0.05); 
 }
+.beverage-item:hover { transform: translateY(-4px); box-shadow: 0 8px 15px var(--cor-sombra-forte); }
 
-.beverage-item-info {
-    text-align: left;
-}
-
-.beverage-item-info h4 {
-    font-size: 1.2em;
-    color: var(--cor-vermelha);
-}
-
-.beverage-item-info span {
-    font-size: 1.1em;
-    font-weight: bold;
-}
+.beverage-item-info { width: 60%; }
+.beverage-item-info h4 { font-size: 1.25em; color: var(--cor-vermelha-escura); margin-bottom: 8px; line-height: 1.2; font-weight: 900;}
+.beverage-item-info span { font-size: 1.1em; font-weight: 900; color: #27ae60; }
 
 .add-beverage-btn {
-    background: var(--cor-verde);
-    color: var(--cor-branca);
-    border: none;
-    padding: 10px 15px;
-    font-size: 1em;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease;
+    background: linear-gradient(135deg, var(--cor-verde) 0%, var(--cor-verde-escuro) 100%); 
+    color: var(--cor-branca); border: none; padding: 12px 20px; font-size: 1em; font-weight: bold;
+    border-radius: 8px; cursor: pointer; transition: transform 0.1s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 168, 89, 0.3); width: auto; 
 }
-.add-beverage-btn:hover {
-    background: #008747;
-}
+.add-beverage-btn:hover { transform: scale(1.05); }
+.add-beverage-btn:active { transform: scale(0.95); }
 
-/* --- Seções de View (Genérico) --- */
 .view-section {
-    background: var(--cor-branca);
-    color: var(--cor-texto);
-    max-width: 800px;
-    margin: 10px auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px var(--cor-sombra);
-    display: none;
-    opacity: 0;
-    visibility: hidden;
+    background: var(--cor-branca); color: var(--cor-texto); max-width: 800px; margin: 10px auto; padding: 30px;
+    border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.4); display: none; opacity: 0; visibility: hidden;
     transition: opacity 0.3s ease-in-out, visibility 0.3s;
 }
+.view-section.active { display: block; opacity: 1; visibility: visible; }
+#menu.view-section { background: none; box-shadow: none; padding: 10px; max-width: 1000px;}
 
-.view-section.active {
-    display: block;
-    opacity: 1;
-    visibility: visible;
-}
+#pastel-builder-view h2 { text-align: center; color: var(--cor-vermelha-escura); font-size: 2.2em; margin-bottom: 20px; font-family: 'Kanit', sans-serif; font-style: italic;}
+.builder-container { display: flex; flex-direction: column; gap: 20px; }
+.builder-flavors h3 { font-size: 1.3em; margin-bottom: 5px; }
+.flavor-extra-info { font-size: 0.95em; color: var(--cor-texto-secundario); margin-bottom: 20px; }
 
-#menu {
-    background: none;
-    box-shadow: none;
-}
+#sabores-lista { max-height: 40vh; overflow-y: auto; padding-right: 10px; border: 2px solid #ecf0f1; padding: 15px; border-radius: 10px; background: #fafafa; }
+.sabor-item { display: flex; align-items: center; padding: 12px 0; border-bottom: 1px solid #eee; transition: background 0.2s ease; }
+.sabor-item:hover { background: #f1f2f6; border-radius: 6px; padding-left: 5px; }
+.sabor-item label { font-size: 1.1em; margin-left: 12px; cursor: pointer; width: 100%; }
+.sabor-item input[type="checkbox"] { width: 22px; height: 22px; accent-color: var(--cor-vermelha); cursor: pointer; }
 
-/* --- Nova View: Montagem de Pastel --- */
-#pastel-builder-view h2 {
-    text-align: center;
-    color: var(--cor-vermelha);
-}
-.builder-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
+.builder-visual { text-align: center; padding: 25px; background: #fff; border-radius: 12px; border: 2px dashed #bdc3c7; }
+.builder-visual img { width: 100%; max-width: 220px; filter: drop-shadow(0px 5px 10px rgba(0,0,0,0.2)); }
+#builder-summary { margin-top: 20px; }
+#sabor-counter { font-size: 1.2em; font-weight: bold; color: var(--cor-texto-secundario); }
+#sabor-price-info { font-size: 1.6em; color: var(--cor-vermelha); font-weight: 900; margin-top: 10px; }
+.builder-actions { display: flex; justify-content: space-between; margin-top: 25px; gap: 15px; }
 
-.builder-flavors h3 {
-    font-size: 1.3em;
-}
-.flavor-extra-info {
-    font-size: 0.9em;
-    color: #555;
-    margin-bottom: 15px;
-}
-
-#sabores-lista {
-    max-height: 40vh;
-    overflow-y: auto;
-    padding-right: 10px;
-    border: 1px solid #eee;
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.sabor-item {
-    display: flex;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid #eee;
-}
-.sabor-item label {
-    font-size: 1.1em;
-    margin-left: 10px;
-}
-.sabor-item input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    accent-color: var(--cor-vermelha);
-}
-
-.builder-visual {
-    text-align: center;
-    padding: 20px;
-    background: #f9f9f9;
-    border-radius: 8px;
-}
-
-.builder-visual img {
-    width: 100%;
-    max-width: 200px; 
-}
-
-#builder-summary {
-    margin-top: 15px;
-}
-#sabor-counter {
-    font-size: 1.2em;
-    font-weight: bold;
-}
-#sabor-price-info {
-    font-size: 1.4em;
-    color: var(--cor-vermelha);
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-.builder-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
-
-/* --- Carrinho de Compras --- */
+#cart-view h2 { color: var(--cor-vermelha-escura); text-align: center; font-size: 2.2em; margin-bottom: 20px; font-family: 'Kanit', sans-serif; font-style: italic; }
 #cart-items { margin-bottom: 20px; }
-.cart-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-}
+.cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #ecf0f1; background: #fdfdfd; border-radius: 8px; margin-bottom: 10px; }
 .cart-item-info { flex-grow: 1; }
-.cart-item-info h4 {
-    color: var(--cor-vermelha);
-    font-size: 1.2em;
-}
-.cart-item-flavors {
-    font-size: 0.9em;
-    color: #555;
-    margin: 5px 0 0 10px;
-    list-style-type: disc;
-}
-.cart-item-actions {
-    display: flex;
-    align-items: center;
-    margin-left: 10px;
-}
-.quantity-btn {
-    background: var(--cor-amarela);
-    color: var(--cor-vermelha);
-    border: none;
-    width: 30px;
-    height: 30px;
-    font-size: 1.2em;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 50%;
-}
-.cart-item-actions span {
-    margin: 0 10px;
-    font-size: 1.1em;
-}
-.remove-btn {
-    background: transparent;
-    border: none;
-    color: var(--cor-vermelha);
-    font-size: 1.5em;
-    cursor: pointer;
-    margin-left: 15px;
-}
-.cart-total {
-    text-align: right;
-    font-size: 1.3em;
-    margin-top: 20px;
-}
-.cart-actions {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-    flex-wrap: wrap; 
-    gap: 10px;
-}
+.cart-item-info h4 { color: var(--cor-texto); font-size: 1.2em; font-weight: 900;}
+.cart-item-flavors { font-size: 0.9em; color: var(--cor-texto-secundario); margin: 5px 0 5px 15px; list-style-type: square; }
+.cart-item-info span { font-weight: bold; color: #27ae60; }
+.cart-item-actions { display: flex; align-items: center; margin-left: 10px; background: #ecf0f1; padding: 5px; border-radius: 20px; }
+.quantity-btn { background: var(--cor-branca); color: var(--cor-vermelha); border: 1px solid #ddd; width: 32px; height: 32px; font-size: 1.2em; font-weight: bold; cursor: pointer; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+.cart-item-actions span { margin: 0 12px; font-size: 1.1em; font-weight: bold; }
+.remove-btn { background: transparent; border: none; color: #e74c3c; font-size: 1.6em; cursor: pointer; margin-left: 15px; padding-right: 5px; }
+.cart-total { text-align: right; font-size: 1.5em; margin-top: 25px; border-top: 2px solid #ecf0f1; padding-top: 15px; }
+.cart-total span { color: var(--cor-vermelha); font-weight: 900; font-size: 1.2em; }
+.cart-actions { display: flex; justify-content: space-between; margin-top: 25px; flex-wrap: wrap; gap: 15px; }
 
-/* --- Formulário de Checkout --- */
+#checkout-view h2 { color: var(--cor-vermelha-escura); text-align: center; font-size: 2.2em; margin-bottom: 20px; font-family: 'Kanit', sans-serif; font-style: italic;}
 #checkout-form { display: flex; flex-direction: column; }
-.checkout-summary-box {
-    background: #f9f9f9;
-    border: 1px solid #eee;
-    border-radius: 8px;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-}
+.checkout-summary-box { background: #f8f9fa; border: 1px solid #e0e0e0; border-radius: 10px; padding: 15px 20px; margin-bottom: 20px; }
 #checkout-summary { margin-bottom: 0; }
-.summary-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-    font-weight: bold;
-    border-bottom: 1px dashed #ccc;
-}
-.summary-item:last-child {
-    border-bottom: none;
-}
-.summary-item-flavors {
-    font-size: 0.9em;
-    color: #555;
-    margin-left: 20px;
-    width: 100%;
-    font-weight: normal; 
-}
-.checkout-total {
-    text-align: right;
-    font-size: 1.4em; 
-    color: var(--cor-vermelha);
-    font-weight: bold;
-    margin: 10px 0;
-}
-#checkout-delivery-fee {
-    font-weight: bold;
-    color: var(--cor-vermelha);
-}
-#checkout-form label {
-    margin-top: 15px;
-    font-weight: bold;
-}
-#checkout-form input,
-#checkout-form select {
-    width: 100%;
-    padding: 12px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
-}
+.summary-item { display: flex; justify-content: space-between; padding: 10px 0; font-weight: bold; border-bottom: 1px dashed #ccc; color: var(--cor-texto); }
+.summary-item:last-child { border-bottom: none; }
+.summary-item-flavors { font-size: 0.9em; color: var(--cor-texto-secundario); margin-left: 20px; width: 100%; font-weight: normal; }
+.checkout-total { text-align: right; font-size: 1.5em; color: var(--cor-vermelha); font-weight: 900; margin: 15px 0; }
+#checkout-delivery-fee { font-weight: bold; color: #e67e22; }
+#checkout-form label { margin-top: 15px; font-weight: bold; color: var(--cor-texto); }
+#checkout-form input, #checkout-form select { width: 100%; padding: 14px; margin-top: 8px; border: 2px solid #ecf0f1; border-radius: 8px; font-size: 1em; outline: none; transition: border-color 0.3s; }
+#checkout-form input:focus, #checkout-form select:focus { border-color: var(--cor-verde); }
 
-/* --- Botões --- */
 .btn-principal {
-    background: var(--cor-verde);
-    color: var(--cor-branca);
-    font-size: 1.2em;
-    font-weight: bold;
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-align: center;
-    margin-top: 20px;
-    transition: background 0.3s ease;
+    background: linear-gradient(135deg, var(--cor-verde) 0%, var(--cor-verde-escuro) 100%); 
+    color: var(--cor-branca); font-size: 1.2em; font-weight: bold; padding: 16px; border: none; border-radius: 10px; cursor: pointer; text-align: center; 
+    margin-top: 20px; transition: transform 0.1s ease, box-shadow 0.2s ease; box-shadow: 0 4px 10px rgba(0, 168, 89, 0.4); width: 100%;
 }
-.btn-principal:hover {
-    background: #008747;
-}
+.btn-principal:active { transform: scale(0.98); }
 
-/* Botão do Rodapé Fixo */
 #footer-btn {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: var(--cor-amarela);
-    color: var(--cor-vermelha);
-    text-align: center;
-    padding: 15px;
-    font-size: 1.3em;
-    font-weight: bold;
-    text-decoration: none;
-    z-index: 50;
-    box-shadow: 0 -2px 10px var(--cor-sombra);
-    animation: pulse-footer 2s infinite;
+    position: fixed; bottom: 0; left: 0; width: 100%; background: var(--cor-amarela); color: var(--cor-vermelha-escura);
+    text-align: center; padding: 18px; font-size: 1.3em; font-family: 'Kanit', sans-serif; font-weight: 900; text-decoration: none; z-index: 50; box-shadow: 0 -4px 15px rgba(0,0,0,0.2); 
+    animation: pulse-footer 2s infinite; letter-spacing: 1px; text-transform: uppercase;
 }
-@keyframes pulse-footer {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.02); }
-    100% { transform: scale(1); }
+@keyframes pulse-footer { 0% { transform: translateY(0); } 50% { transform: translateY(-3px); } 100% { transform: translateY(0); } }
+
+#btn-voltar-menu, #btn-voltar-carrinho, #btn-cancel-pastel { background: #ecf0f1; color: var(--cor-texto); padding: 16px; border: none; font-weight: bold; border-radius: 10px; cursor: pointer; font-size: 1em; transition: background 0.2s; width: 100%; }
+#btn-voltar-menu:hover, #btn-voltar-carrinho:hover, #btn-cancel-pastel:hover { background: #bdc3c7; }
+
+.modal-overlay { display: none; position: fixed; z-index: 100; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0, 0, 0, 0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; }
+.modal-content { background-color: var(--cor-branca); color: var(--cor-texto); padding: 40px 30px; border-radius: 16px; width: 90%; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; animation: slideIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+.modal-content h2 { color: var(--cor-verde); font-size: 2.2em; margin-bottom: 10px; font-family: 'Kanit', sans-serif;}
+.modal-content p { font-size: 1.1em; margin: 15px 0 25px 0; color: var(--cor-texto-secundario); }
+@keyframes slideIn { from { transform: translateY(-50px) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+
+@media (min-width: 769px) {
+    .builder-container { flex-direction: row; }
+    .builder-flavors { flex: 2; }
+    .builder-visual { flex: 1; position: sticky; top: 20px; }
+    #btn-voltar-menu, #btn-voltar-carrinho, #btn-cancel-pastel, .btn-principal { width: auto; flex: 1; }
+    .cart-actions, .builder-actions { flex-direction: row; }
 }
 
-/* Botões secundários */
-#btn-voltar-menu,
-#btn-voltar-carrinho,
-#btn-cancel-pastel {
-    background: #eee;
-    color: var(--cor-texto);
-    padding: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-    margin-top: 20px;
+@media (max-width: 768px) {
+    #beverages-list { grid-template-columns: 1fr; }
+    h1 { font-size: 2.3em; }
+    #pastel-image { max-width: 180px; margin: 10px auto; }
+    #menu p { color: var(--cor-branca) !important; font-size: 1.1em; }
+    
+    .view-section { margin: 15px 10px; padding: 20px 15px; border-radius: 12px; }
+    #menu.view-section { background: none; box-shadow: none; padding: 0; }
+    
+    .cart-actions, .builder-actions { flex-direction: column; }
+    .cart-item { flex-direction: column; align-items: flex-start; }
+    .cart-item-actions { margin-left: 0; margin-top: 15px; width: 100%; justify-content: space-between; }
+    .modal-content { padding: 30px 20px; }
 }
 
-/* --- Estilos do Pop-up de Confirmação --- */
-.modal-overlay {
-    display: none; 
-    position: fixed;
-    z-index: 100;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.7);
-    align-items: center;
-    justify-content: center;
-}
-.modal-content {
-    background-color: var(--cor-branca);
-    color: var(--cor-texto);
-    padding: 30px;
-    border: 5px solid var(--cor-amarela);
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 5px 15px var(--cor-sombra);
-    text-align: center;
-    animation: slideIn 0.4s ease;
-}
-.modal-content h2 {
-    color: var(--cor-verde);
-}
-.modal-content p {
-    font-size: 1.1em;
-    margin: 15px 0;
-}
-
-@keyframes slideIn {
-    from { transform: translateY(-50px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
-/* --- Responsividade --- */
-@media (min-width: 768px) {
-    .builder-container {
-        flex-direction: row;
-    }
-    .builder-flavors {
-        flex: 2; 
-    }
-    .builder-visual {
-        flex: 1; 
-        position: sticky;
-        top: 20px;
-    }
-}
-@media (max-width: 600px) {
-    h1 {
-        font-size: 2.5em;
-    }
-
-    /* --- CORREÇÃO ADICIONADA AQUI --- */
-    /* Força o texto "Clique no pastel" a ficar preto no celular */
-    #menu p {
-        color: var(--cor-texto) !important; /* cor-texto = preto */
-    }
-    /* --- FIM DA CORREÇÃO --- */
-
-    .view-section {
-        margin: 10px;
-        padding: 15px;
-    }
-    /* No mobile, #menu precisa ter fundo branco senão fica estranho */
-    #menu {
-        background: var(--cor-branca);
-        box-shadow: 0 4px 10px var(--cor-sombra);
-    }
-    .cart-actions {
-        flex-direction: column;
-    }
-    .cart-actions button {
-        width: 100%;
-    }
-    /* Ajuste no modal para telas pequenas */
-    .modal-content {
-        padding: 20px;
-    }
-}
-
-/* --- Estilo do Loading --- */
-.loading-text {
-    font-size: 1.1em;
-    font-style: italic;
-    color: #555;
-    text-align: center;
-    padding: 20px;
-}
+.loading-text { font-size: 1.1em; font-style: italic; color: var(--cor-branca); text-align: center; padding: 20px; }
