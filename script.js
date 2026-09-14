@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const numeroWhatsApp = "5581991110325"; 
+    const numeroWhatsApp = "558191110325"; 
     const taxaDeEntrega = 3.00;
     
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQBgruE-4raM98m5Yt_vEvNLowbasfmklW0lls2eYJUVwtkwMEF42xgtHwM-NicSOYqHpFnY9xu-nAy/pub?output=csv';
@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pastelPrecoBase = 8.00; 
     const saboresGratis = 4;
     const precoPorSaborExtra = 1.00;
+    const precoCreamCheese = 2.00; 
 
     let menuSabores = [];
     let cardapioLanches = [];
@@ -58,10 +59,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         menuSabores.forEach((sabor, index) => {
+            let nomeExibicao = sabor.nome;
+            let ehCreamCheese = sabor.nome.toLowerCase().includes('cream cheese');
+            
+            if (ehCreamCheese) {
+                nomeExibicao += ` <span style="color: var(--cor-amarela); font-size: 0.85em;">(+R$ 2,00)</span>`;
+            }
+
             const saborHTML = `
                 <div class="sabor-item">
-                    <input type="checkbox" id="sabor-${index}" data-nome="${sabor.nome}">
-                    <label for="sabor-${index}">${sabor.nome}</label>
+                    <input type="checkbox" id="sabor-${index}" data-nome="${sabor.nome}" data-creamcheese="${ehCreamCheese ? 'true' : 'false'}">
+                    <label for="sabor-${index}">${nomeExibicao}</label>
                 </div>
             `;
             saboresLista.innerHTML += saborHTML;
@@ -75,18 +83,21 @@ document.addEventListener('DOMContentLoaded', () => {
             beveragesList.innerHTML += `<h3 style="color: var(--cor-amarela); margin-top: 15px; margin-bottom: 5px; text-shadow: 1px 1px 0px #000; font-family: 'Kanit', sans-serif; letter-spacing: 1px; font-size: 1.5em; font-style: italic;">${titulo}</h3>`;
             lista.forEach(item => {
                 beveragesList.innerHTML += `
-                    <div class="beverage-item">
-                        <div class="beverage-item-info">
-                            <h4>${item.nome}</h4>
-                            <span>R$ ${item.preco.toFixed(2)}</span>
+                    <div class="beverage-item" style="flex-direction: column; align-items: stretch; gap: 8px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="beverage-item-info">
+                                <h4>${item.nome}</h4>
+                                <span>R$ ${item.preco.toFixed(2)}</span>
+                            </div>
+                            <button class="add-beverage-btn" data-id="${item.id}">Adicionar</button>
                         </div>
-                        <button class="add-beverage-btn" data-id="${item.id}">Adicionar</button>
+                        <input type="text" class="item-obs-input" placeholder="Observação (ex: sem purê, sem batata...)" data-id="${item.id}" style="background: #121212; border: 1px solid #444; color: #fff; padding: 6px 10px; border-radius: 5px; font-size: 0.85em;">
                     </div>
                 `;
             });
         }
         
-        adicionarCategoriaHTML("🍔 Salgados & Lanches", cardapioLanches);
+        adicionarCategoriaHTML("🌭 Cachorros-Quentes & Salgados", cardapioLanches);
         adicionarCategoriaHTML("🥤 Sucos & Caldos", cardapioSucos);
         adicionarCategoriaHTML("🍫 Doces & Sobremesas", cardapioDoces);
         adicionarCategoriaHTML("🧊 Refrigerantes", cardapioRefris);
@@ -126,7 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 totalItens += item.quantidade; 
                 let itemHTML = '';
                 if (item.type === 'pastel') {
-                    let obsVisual = item.observacao ? `<br><small>Obs: ${item.observacao}</small>` : '';
+                    let obsVisual = item.observacao ? `<br><small style="color: #aaa;">Obs: ${item.observacao}</small>` : '';
                     itemHTML = `
                         <div class="cart-item">
                             <div class="cart-item-info">
@@ -144,10 +155,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     `;
                 } else if (item.type === 'item-pronto') {
+                    let obsVisual = item.observacao ? `<br><small style="color: #aaa;">Obs: ${item.observacao}</small>` : '';
                     itemHTML = `
                         <div class="cart-item">
                             <div class="cart-item-info">
                                 <h4>${item.nome}</h4>
+                                ${obsVisual}
                                 <span>Preço un.: R$ ${item.preco.toFixed(2)}</span>
                             </div>
                             <div class="cart-item-actions">
@@ -177,17 +190,19 @@ document.addEventListener('DOMContentLoaded', () => {
         checkoutSummary.innerHTML = '';
         cart.forEach(item => {
             const subtotal = item.preco * item.quantidade;
-            let saboresHTML = '';
+            let detalhesHTML = '';
             if (item.type === 'pastel') { 
                 let obsText = item.observacao ? ` - Obs: ${item.observacao}` : '';
-                saboresHTML = `<div class="summary-item-flavors">(${item.sabores.join(', ')})${obsText}</div>`; 
+                detalhesHTML = `<div class="summary-item-flavors">(${item.sabores.join(', ')})${obsText}</div>`; 
+            } else if (item.type === 'item-pronto' && item.observacao) {
+                detalhesHTML = `<div class="summary-item-flavors">(Obs: ${item.observacao})</div>`;
             }
             const itemHTML = `
                 <div class="summary-item">
                     <span>${item.quantidade}x ${item.type === 'pastel' ? 'Pastel Customizado' : item.nome}</span>
                     <span>R$ ${subtotal.toFixed(2)}</span>
                 </div>
-                ${saboresHTML}
+                ${detalhesHTML}
             `;
             checkoutSummary.innerHTML += itemHTML;
         });
@@ -209,14 +224,34 @@ document.addEventListener('DOMContentLoaded', () => {
         const checkboxes = saboresLista.querySelectorAll('input[type="checkbox"]:checked');
         let count = checkboxes.length;
         currentPastel.sabores = [];
-        checkboxes.forEach(cb => { currentPastel.sabores.push(cb.dataset.nome); });
+        
+        let temCreamCheese = false;
+        checkboxes.forEach(cb => { 
+            currentPastel.sabores.push(cb.dataset.nome); 
+            if (cb.dataset.creamcheese === 'true') {
+                temCreamCheese = true;
+            }
+        });
+
         let preco = pastelPrecoBase;
-        if (count > saboresGratis) { preco += (count - saboresGratis) * precoPorSaborExtra; }
+        
+        if (count > saboresGratis) { 
+            preco += (count - saboresGratis) * precoPorSaborExtra; 
+        }
+
+        if (temCreamCheese) {
+            preco += precoCreamCheese;
+        }
+
         currentPastel.preco = preco;
         saborCounter.textContent = `${count} sabor${count !== 1 ? 'es' : ''} selecionado${count !== 1 ? 's' : ''}`;
         saborPriceInfo.textContent = `Preço deste pastel: R$ ${preco.toFixed(2)}`;
-        if (count > saboresGratis) { saborCounter.style.color = 'var(--cor-vermelha)'; } 
-        else { saborCounter.style.color = 'var(--cor-texto)'; }
+        
+        if (count > saboresGratis || temCreamCheese) { 
+            saborCounter.style.color = 'var(--cor-vermelha)'; 
+        } else { 
+            saborCounter.style.color = 'var(--cor-texto)'; 
+        }
     }
 
     function adicionarPastelAoCarrinho() {
@@ -249,10 +284,31 @@ document.addEventListener('DOMContentLoaded', () => {
         const id = event.target.dataset.id; 
         const produto = todosItensProntos.find(b => b.id === id); 
         if(!produto) return;
-        const itemNoCarrinho = cart.find(item => item.id === id && item.type === 'item-pronto');
-        if (itemNoCarrinho) { itemNoCarrinho.quantidade++; } else {
-            cart.push({ id: produto.id, type: 'item-pronto', nome: produto.nome, preco: produto.preco, quantidade: 1 });
+
+        // Pega a observação digitada na caixinha específica daquele item
+        const inputObs = beveragesList.querySelector(`.item-obs-input[data-id="${id}"]`);
+        const observacao = inputObs ? inputObs.value.trim() : '';
+
+        // Cria um identificador único baseado no ID e na observação para diferenciar se o cliente pedir o mesmo lanche com obs diferentes
+        const itemCarrinhoId = id + '_' + (observacao ? btoa(observacao).replace(/=/g, '') : 'sem_obs');
+
+        const itemNoCarrinho = cart.find(item => item.id === itemCarrinhoId && item.type === 'item-pronto');
+        if (itemNoCarrinho) { 
+            itemNoCarrinho.quantidade++; 
+        } else {
+            cart.push({ 
+                id: itemCarrinhoId, 
+                type: 'item-pronto', 
+                nome: produto.nome, 
+                preco: produto.preco, 
+                quantidade: 1,
+                observacao: observacao 
+            });
         }
+
+        // Limpa o input de observação após adicionar
+        if(inputObs) inputObs.value = '';
+
         renderizarCarrinho(); 
         const targetButton = event.target;
         targetButton.textContent = 'Adicionado!';
@@ -339,7 +395,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let obsTexto = item.observacao ? `\n  *Obs:* ${item.observacao}` : '';
                 listaItens += `*${item.quantidade}x Pastel Customizado* (R$ ${subtotal.toFixed(2)})\n  (${item.sabores.join(', ')})${obsTexto}\n`;
             } else {
-                listaItens += `*${item.quantidade}x ${item.nome}* (R$ ${subtotal.toFixed(2)})\n`;
+                let obsTexto = item.observacao ? ` (Obs: ${item.observacao})` : '';
+                listaItens += `*${item.quantidade}x ${item.nome}*${obsTexto} (R$ ${subtotal.toFixed(2)})\n`;
             }
         });
 
