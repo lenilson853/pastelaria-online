@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const numeroWhatsApp = "5581989340912"; 
+    const numeroWhatsApp = "5581991110325"; 
     const taxaDeEntrega = 3.00;
     
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQBgruE-4raM98m5Yt_vEvNLowbasfmklW0lls2eYJUVwtkwMEF42xgtHwM-NicSOYqHpFnY9xu-nAy/pub?output=csv';
