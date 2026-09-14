@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const numeroWhatsApp = "558191110325"; 
+    const numeroWhatsApp = "5581991110325"; 
     const taxaDeEntrega = 3.00;
     
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQBgruE-4raM98m5Yt_vEvNLowbasfmklW0lls2eYJUVwtkwMEF42xgtHwM-NicSOYqHpFnY9xu-nAy/pub?output=csv';
@@ -78,20 +78,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function renderizarItensProntos() {
         beveragesList.innerHTML = ''; 
+        
         function adicionarCategoriaHTML(titulo, lista) {
             if(lista.length === 0) return;
             beveragesList.innerHTML += `<h3 style="color: var(--cor-amarela); margin-top: 15px; margin-bottom: 5px; text-shadow: 1px 1px 0px #000; font-family: 'Kanit', sans-serif; letter-spacing: 1px; font-size: 1.5em; font-style: italic;">${titulo}</h3>`;
+            
             lista.forEach(item => {
+                let htmlObs = '';
+                let estiloItem = 'display: flex; justify-content: space-between; align-items: center;';
+
+                // Verifica se o nome do item exato contém "cachorro quente" (ignorando maiúsculas/minúsculas)
+                let ehCachorroQuente = item.nome.toLowerCase().includes('cachorro quente');
+
+                if (ehCachorroQuente) {
+                    estiloItem = 'flex-direction: column; align-items: stretch; gap: 8px;';
+                    htmlObs = `<input type="text" class="item-obs-input" placeholder="Observação (ex: sem purê, sem batata...)" data-id="${item.id}" style="background: #121212; border: 1px solid #444; color: #fff; padding: 6px 10px; border-radius: 5px; font-size: 0.85em;">`;
+                }
+
                 beveragesList.innerHTML += `
-                    <div class="beverage-item" style="flex-direction: column; align-items: stretch; gap: 8px;">
-                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="beverage-item" style="${estiloItem}">
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
                             <div class="beverage-item-info">
                                 <h4>${item.nome}</h4>
                                 <span>R$ ${item.preco.toFixed(2)}</span>
                             </div>
                             <button class="add-beverage-btn" data-id="${item.id}">Adicionar</button>
                         </div>
-                        <input type="text" class="item-obs-input" placeholder="Observação (ex: sem purê, sem batata...)" data-id="${item.id}" style="background: #121212; border: 1px solid #444; color: #fff; padding: 6px 10px; border-radius: 5px; font-size: 0.85em;">
+                        ${htmlObs}
                     </div>
                 `;
             });
@@ -285,11 +298,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const produto = todosItensProntos.find(b => b.id === id); 
         if(!produto) return;
 
-        // Pega a observação digitada na caixinha específica daquele item
         const inputObs = beveragesList.querySelector(`.item-obs-input[data-id="${id}"]`);
         const observacao = inputObs ? inputObs.value.trim() : '';
 
-        // Cria um identificador único baseado no ID e na observação para diferenciar se o cliente pedir o mesmo lanche com obs diferentes
         const itemCarrinhoId = id + '_' + (observacao ? btoa(observacao).replace(/=/g, '') : 'sem_obs');
 
         const itemNoCarrinho = cart.find(item => item.id === itemCarrinhoId && item.type === 'item-pronto');
@@ -306,7 +317,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        // Limpa o input de observação após adicionar
         if(inputObs) inputObs.value = '';
 
         renderizarCarrinho(); 
@@ -425,7 +435,7 @@ ${listaItens}
     function fecharModalConfirmacao() { confirmModal.style.display = 'none'; mostrarView('menu'); }
 
     pastelImage.addEventListener('click', () => mostrarView('pastel-builder-view'));
-    btnVoltarMenu.addEventListener('click', () => mostrarView('menu'));
+    btnVoltarMenu.addEventListener('click', () => { mostrarView('menu'); });
     btnCancelPastel.addEventListener('click', () => { resetarConstrutor(); mostrarView('menu'); });
     btnVoltarCarrinho.addEventListener('click', () => {
         if (activeView === 'checkout-view') {
