@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const numeroWhatsApp = "5581991110325";//re de colocar o número do seu cliente aqui!//
+    const numeroWhatsApp = "5581989340912"; 
     const taxaDeEntrega = 3.00;
     
-    // O seu link da planilha
     const GOOGLE_SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQBgruE-4raM98m5Yt_vEvNLowbasfmklW0lls2eYJUVwtkwMEF42xgtHwM-NicSOYqHpFnY9xu-nAy/pub?output=csv';
 
     const pastelPrecoBase = 8.00; 
@@ -22,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let tipoEntregaAtual = ""; 
 
     const pastelImage = document.getElementById('pastel-image');
-    const views = document.querySelectorAll('.view-section');
     const beveragesList = document.getElementById('beverages-list');
     const saboresLista = document.getElementById('sabores-lista');
     const saboresForm = document.getElementById('sabores-form');
@@ -46,7 +44,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const clienteEnderecoInput = document.getElementById('cliente-endereco');
     const deliveryFeeElement = document.getElementById('checkout-delivery-fee');
     const deliveryFeeValue = document.getElementById('delivery-fee-value');
+    const pastelObsInput = document.getElementById('pastel-obs');
     const pagamentoSelect = document.getElementById('cliente-pagamento');
+    const pixBox = document.getElementById('pix-box');
+    const btnCopyPix = document.getElementById('btn-copy-pix');
+    const pixKeyInput = document.getElementById('pix-key-input');
 
 
     function renderizarSabores() {
@@ -124,11 +126,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 totalItens += item.quantidade; 
                 let itemHTML = '';
                 if (item.type === 'pastel') {
+                    let obsVisual = item.observacao ? `<br><small>Obs: ${item.observacao}</small>` : '';
                     itemHTML = `
                         <div class="cart-item">
                             <div class="cart-item-info">
                                 <h4>Pastel Customizado</h4>
                                 <ul class="cart-item-flavors">${item.sabores.map(s => `<li>${s}</li>`).join('')}</ul>
+                                ${obsVisual}
                                 <span>Preço un.: R$ ${item.preco.toFixed(2)}</span>
                             </div>
                             <div class="cart-item-actions">
@@ -174,7 +178,10 @@ document.addEventListener('DOMContentLoaded', () => {
         cart.forEach(item => {
             const subtotal = item.preco * item.quantidade;
             let saboresHTML = '';
-            if (item.type === 'pastel') { saboresHTML = `<div class="summary-item-flavors">(${item.sabores.join(', ')})</div>`; }
+            if (item.type === 'pastel') { 
+                let obsText = item.observacao ? ` - Obs: ${item.observacao}` : '';
+                saboresHTML = `<div class="summary-item-flavors">(${item.sabores.join(', ')})${obsText}</div>`; 
+            }
             const itemHTML = `
                 <div class="summary-item">
                     <span>${item.quantidade}x ${item.type === 'pastel' ? 'Pastel Customizado' : item.nome}</span>
@@ -213,10 +220,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function adicionarPastelAoCarrinho() {
-        if (currentPastel.sabores.length === 0) { alert("Escolha pelo menos um sabor para o seu pastel!"); return; }
+        if (currentPastel.sabores.length === 0) { alert("Escolha pelo menos um sabor para o seu item!"); return; }
+        
+        const observacao = pastelObsInput ? pastelObsInput.value.trim() : '';
+
         const novoPastel = {
-            id: 'p_' + Date.now(), type: 'pastel', sabores: [...currentPastel.sabores],
-            preco: currentPastel.preco, quantidade: 1
+            id: 'p_' + Date.now(), 
+            type: 'pastel', 
+            sabores: [...currentPastel.sabores],
+            preco: currentPastel.preco, 
+            quantidade: 1,
+            observacao: observacao
         };
         cart.push(novoPastel);
         resetarConstrutor();
@@ -225,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function resetarConstrutor() {
         saboresForm.reset();
+        if(pastelObsInput) pastelObsInput.value = '';
         currentPastel = { sabores: [], preco: pastelPrecoBase };
         atualizarPrecoPastel();
     }
@@ -274,12 +289,18 @@ document.addEventListener('DOMContentLoaded', () => {
         atualizarTotalCheckout();
     }
 
-    // --- FUNÇÃO DE GERAR NÚMERO SEQUENCIAL DO PEDIDO ---
+    function handlePaymentChange() {
+        if (pagamentoSelect.value === 'Pix') {
+            pixBox.style.display = 'block';
+        } else {
+            pixBox.style.display = 'none';
+        }
+    }
+
     function proximoNumeroPedido() {
         let ultimoPedido = localStorage.getItem('gvm_ultimo_pedido');
         let proximo = ultimoPedido ? parseInt(ultimoPedido) + 1 : 1;
         localStorage.setItem('gvm_ultimo_pedido', proximo);
-        // Formata para ter sempre 3 dígitos (ex: 001, 002, 010...)
         return String(proximo).padStart(3, '0');
     }
 
@@ -294,7 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tipoEntregaAtual === 'delivery' && !endereco) { alert("Por favor, preencha seu Endereço de Entrega."); return; }
         if (!nome || !pagamento) { alert("Por favor, preencha seu Nome e a Forma de Pagamento."); return; }
 
-        let numeroDoPedido = proximoNumeroPedido(); // 👈 Gera o número sequencial aqui!
+        let numeroDoPedido = proximoNumeroPedido();
 
         let total = calcularSubtotal();
         let listaItens = '';
@@ -308,11 +329,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         let infoPagamento = `*Forma de Pagamento:* ${pagamento}`;
+        if (pagamento === 'Pix') {
+            infoPagamento += `\n📎 *(Comprovante do Pix será enviado em seguida)*`;
+        }
 
         cart.forEach(item => {
             const subtotal = item.preco * item.quantidade;
             if (item.type === 'pastel') {
-                listaItens += `*${item.quantidade}x Pastel Customizado* (R$ ${subtotal.toFixed(2)})\n  (${item.sabores.join(', ')})\n`;
+                let obsTexto = item.observacao ? `\n  *Obs:* ${item.observacao}` : '';
+                listaItens += `*${item.quantidade}x Pastel Customizado* (R$ ${subtotal.toFixed(2)})\n  (${item.sabores.join(', ')})${obsTexto}\n`;
             } else {
                 listaItens += `*${item.quantidade}x ${item.nome}* (R$ ${subtotal.toFixed(2)})\n`;
             }
@@ -337,11 +362,11 @@ ${listaItens}
     function abrirModalConfirmacao() {
         checkoutForm.reset(); cart = []; tipoEntregaAtual = ""; 
         addressWrapper.style.display = 'block'; 
+        pixBox.style.display = 'none';
         confirmModal.style.display = 'flex'; renderizarCarrinho(); 
     }
     function fecharModalConfirmacao() { confirmModal.style.display = 'none'; mostrarView('menu'); }
 
-    // --- EVENT LISTENERS ---
     pastelImage.addEventListener('click', () => mostrarView('pastel-builder-view'));
     btnVoltarMenu.addEventListener('click', () => mostrarView('menu'));
     btnCancelPastel.addEventListener('click', () => { resetarConstrutor(); mostrarView('menu'); });
@@ -361,6 +386,15 @@ ${listaItens}
     checkoutForm.addEventListener('submit', enviarPedidoWhatsApp);
     btnCloseConfirm.addEventListener('click', fecharModalConfirmacao);
     deliveryTypeSelect.addEventListener('change', handleDeliveryTypeChange);
+    pagamentoSelect.addEventListener('change', handlePaymentChange);
+
+    btnCopyPix.addEventListener('click', () => {
+        pixKeyInput.select();
+        pixKeyInput.setSelectionRange(0, 99999);
+        navigator.clipboard.writeText(pixKeyInput.value);
+        btnCopyPix.textContent = 'Copiado!';
+        setTimeout(() => { btnCopyPix.textContent = 'Copiar Chave'; }, 2000);
+    });
 
     function parseCSV(text) {
         const textoLimpo = text.replace(/\r/g, '').replace(/^\uFEFF/, ''); 

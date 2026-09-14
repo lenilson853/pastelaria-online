@@ -1,130 +1,175 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GVM Pastel da Hora</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,800;1,800&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <h1>GVM PASTEL DA HORA</h1>
-    </header>
+    <!-- TELA 1: MENU PRINCIPAL -->
+    <div id="menu" class="view-section active">
+        <header class="main-header">
+            <h1>GVM PASTEL DA HORA</h1>
+            <p>Escolha seus produtos ou monte seu pastel!</p>
+        </header>
 
-    <main>
-        <!-- 🏠 PÁGINA PRINCIPAL (CARDÁPIO) -->
-        <section id="menu" class="view-section active">
-            <img src="images/pastel.png" alt="GVM Pastel da Hora" id="pastel-image">
-            <p>Clique no pastel para montar o seu</p>
-            <hr class="section-divider">
-            <h2 class="section-title">Acompanhamentos Extras</h2>
-            <div id="beverages-list">
-                <p id="bebidas-loading" class="loading-text">Carregando cardápio...</p>
+        <section class="banner-section">
+            <div class="pastel-banner" id="pastel-image">
+                <img src="images/fundo.jpg" alt="Monte seu Pastel">
+                <div class="banner-text">
+                    <h2>Monte seu Pastel</h2>
+                    <p>Toque aqui para escolher os sabores!</p>
+                </div>
             </div>
-        </section> 
-        
-        <!-- 🛠️ VIEW: MONTAGEM DO PASTEL -->
-        <section id="pastel-builder-view" class="view-section">
+        </section>
+
+        <section class="menu-category">
+            <div id="beverages-list" class="beverages-grid">
+                <!-- Itens prontos carregados via JavaScript -->
+            </div>
+        </section>
+    </div>
+
+    <!-- TELA 2: CONSTRUTOR DE PASTEL -->
+    <div id="pastel-builder-view" class="view-section">
+        <header class="sub-header">
             <h2>Monte seu Pastel</h2>
-            <div class="builder-container">
-                <div class="builder-flavors">
-                    <h3>Escolha até 4 sabores (Preço Base: R$ 8,00)</h3>
-                    <p class="flavor-extra-info">Sabores extras: + R$ 1,00 cada</p>
-                    <form id="sabores-form">
-                        <div id="sabores-lista">
-                            <p id="sabores-loading" class="loading-text">Carregando sabores...</p>
-                        </div>
-                    </form>
+            <button id="btn-voltar-menu" class="back-btn">Voltar ao Cardápio</button>
+        </header>
+
+        <div class="builder-container">
+            <p class="builder-instruction">Escolha até 4 sabores inclusos (R$ 8,00). Cada sabor extra custa R$ 1,00.</p>
+            
+            <form id="sabores-form">
+                <div id="sabores-lista" class="sabores-grid">
+                    <!-- Sabores carregados via JavaScript -->
                 </div>
-                <div class="builder-visual">
-                    <img src="images/pastel.png" alt="Pastel">
-                    <div id="builder-summary">
-                        <h4 id="sabor-counter">0 sabores selecionados</h4>
-                        <h3 id="sabor-price-info">Preço deste pastel: R$ 8,00</h3>
+
+                <div class="form-group" style="margin-top: 20px;">
+                    <label for="pastel-obs" style="font-weight: bold; display: block; margin-bottom: 5px; color: var(--cor-amarela);">Observações do Item:</label>
+                    <input type="text" id="pastel-obs" placeholder="Ex: Sem cebola, bem passado, etc." style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 1em;">
+                </div>
+
+                <div class="builder-footer">
+                    <div class="builder-info">
+                        <span id="sabor-counter">0 sabores selecionados</span>
+                        <span id="sabor-price-info">Preço deste pastel: R$ 8,00</span>
+                    </div>
+                    <div class="builder-actions">
+                        <button type="button" id="btn-cancel-pastel" class="secondary-btn">Cancelar</button>
+                        <button type="button" id="btn-add-pastel-to-cart" class="primary-btn">Adicionar ao Carrinho</button>
                     </div>
                 </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- TELA 3: CARRINHO -->
+    <div id="cart-view" class="view-section">
+        <header class="sub-header">
+            <h2>Seu Carrinho</h2>
+            <button id="btn-voltar-carrinho" class="back-btn">Continuar Comprando</button>
+        </header>
+
+        <div class="cart-container">
+            <div id="cart-items" class="cart-items-list">
+                <!-- Itens do carrinho -->
             </div>
-            <div class="builder-actions">
-                <button id="btn-cancel-pastel">Cancelar</button>
-                <button id="btn-add-pastel-to-cart" class="btn-principal">Adicionar ao Carrinho</button>
-            </div>
-        </section> 
-        
-        <!-- 🛒 CARRINHO DE COMPRAS -->
-        <section id="cart-view" class="view-section">
-            <h2>Meu Carrinho 🛒</h2>
-            <div id="cart-items"></div>
-            <div class="cart-total">
-                <h3>Total: <span id="cart-total-price">R$ 0,00</span></h3>
-            </div>
-            <div class="cart-actions">
-                <button id="btn-voltar-menu">Continuar Comprando</button>
-                <button id="btn-finalizar-pedido" class="btn-principal">Finalizar Pedido</button>
-            </div>
-        </section> 
-        
-        <!-- 💳 PÁGINA DE CHECKOUT -->
-        <section id="checkout-view" class="view-section">
-            <h2>Finalizar Pedido 💳</h2>
-            <form id="checkout-form">
-                <h3>Resumo do Pedido</h3>
-                <div class="checkout-summary-box">
-                    <div id="checkout-summary"></div>
-                    <div id="checkout-delivery-fee" class="summary-item" style="display: none;">
-                        <span>Taxa de Entrega</span>
-                        <span id="delivery-fee-value">R$ 2,00</span>
-                    </div>
+
+            <div class="cart-summary">
+                <div class="summary-line">
+                    <span>Subtotal:</span>
+                    <span id="cart-total-price">R$ 0,00</span>
                 </div>
-                <h3 class="checkout-total">Total: <span id="checkout-total-price">R$ 0,00</span></h3>
-                <hr>
-                
-                <h3>Seus Dados</h3>
-                <label for="delivery-type">Tipo de Entrega:</label>
+                <button id="btn-finalizar-pedido" class="primary-btn full-width" disabled>Avançar para Entrega/Pagamento</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- TELA 4: CHECKOUT / FINALIZAÇÃO -->
+    <div id="checkout-view" class="view-section">
+        <header class="sub-header">
+            <h2>Finalizar Pedido</h2>
+        </header>
+
+        <form id="checkout-form" class="checkout-container">
+            <div class="form-group">
+                <label for="cliente-nome">Seu Nome Completo *</label>
+                <input type="text" id="cliente-nome" required placeholder="Digite seu nome">
+            </div>
+
+            <div class="form-group">
+                <label for="delivery-type">Tipo de Pedido *</label>
                 <select id="delivery-type" required>
-                    <option value="" disabled selected>Selecione uma opção</option>
-                    <option value="delivery">Entrega (Delivery)</option>
-                    <option value="pickup">Retirada no Estabelecimento</option>
+                    <option value="" disabled selected>Selecione...</option>
+                    <option value="delivery">Delivery (Entrega em casa)</option>
+                    <option value="retirada">Retirar no Estabelecimento</option>
                 </select>
-                
-                <label for="cliente-nome">Seu Nome:</label>
-                <input type="text" id="cliente-nome" placeholder="Como devemos te chamar?" required>
-                
-                <div id="address-wrapper">
-                    <label for="cliente-endereco">Endereço de Entrega:</label>
-                    <input type="text" id="cliente-endereco" placeholder="Rua, Número, Bairro">
-                </div>
-                
-                <label for="cliente-pagamento">Forma de Pagamento:</label>
+            </div>
+
+            <div class="form-group" id="address-wrapper">
+                <label for="cliente-endereco">Endereço de Entrega (Rua, Número, Bairro) *</label>
+                <textarea id="cliente-endereco" placeholder="Digite seu endereço completo"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="cliente-pagamento">Forma de Pagamento *</label>
                 <select id="cliente-pagamento" required>
-                    <option value="" disabled selected>Selecione uma opção</option>
+                    <option value="" disabled selected>Selecione a forma de pagamento...</option>
                     <option value="Pix">Pix</option>
-                    <option value="Dinheiro">Dinheiro (levar troco?)</option>
+                    <option value="Dinheiro">Dinheiro (Informar troco se precisar)</option>
                     <option value="Cartão de Crédito">Cartão de Crédito</option>
                     <option value="Cartão de Débito">Cartão de Débito</option>
                 </select>
-                
-                <!-- 👇 NOVO CAMPO DE TROCO ESCONDIDO 👇 -->
-                <div id="troco-wrapper" style="display: none;">
-                    <label for="cliente-troco">Troco para quanto?</label>
-                    <input type="number" id="cliente-troco" placeholder="Ex: 50" min="0" step="0.50">
+            </div>
+
+            <!-- CAIXINHA DE INSTRUÇÃO DO PIX COM AVISO DE COMPROVANTE -->
+            <div id="pix-box" style="display: none; background: #252525; border: 1px solid var(--cor-amarela); padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+                <h3 style="color: var(--cor-amarela); font-size: 1.1em; margin-bottom: 8px;">Pagamento via Pix</h3>
+                <p style="font-size: 0.9em; color: #ccc; margin-bottom: 8px;">Copie a chave celular abaixo e faça o pagamento:</p>
+                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 12px;">
+                    <input type="text" id="pix-key-input" value="81991251583" readonly style="background: #121212; color: #fff; border: 1px solid #444; padding: 8px; border-radius: 5px; width: 100%; text-align: center; font-weight: bold;">
+                    <button type="button" id="btn-copy-pix" class="primary-btn" style="padding: 8px 12px; font-size: 0.9em; white-space: nowrap;">Copiar Chave</button>
                 </div>
-                
-                <button type="submit" id="btn-enviar-whatsapp" class="btn-principal">Enviar Pedido pelo WhatsApp</button>
-                <button type="button" id="btn-voltar-carrinho">Voltar ao Carrinho</button>
-            </form>
-        </section> 
-    </main> 
-    
-    <a href="#menu" id="footer-btn">Ver Cardápio</a>
-    
-    <div id="confirm-modal" class="modal-overlay">
+                <div style="background: rgba(229, 9, 20, 0.15); border: 1px solid var(--cor-vermelha); padding: 10px; border-radius: 6px; text-align: center;">
+                    <p style="color: #ff6b6b; font-size: 0.9em; font-weight: bold; margin: 0;">⚠️ ATENÇÃO: Envie o comprovante do Pix aqui no chat do WhatsApp logo após finalizar o pedido!</p>
+                </div>
+            </div>
+
+            <div class="checkout-review">
+                <h3>Resumo do Pedido</h3>
+                <div id="checkout-summary"></div>
+                <div class="checkout-totals">
+                    <div id="checkout-delivery-fee" style="display: none;">
+                        <span>Taxa de Entrega:</span>
+                        <span id="delivery-fee-value">R$ 3,00</span>
+                    </div>
+                    <div class="final-total-line">
+                        <span>Total Geral:</span>
+                        <span id="checkout-total-price">R$ 0,00</span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="primary-btn full-width">Enviar Pedido via WhatsApp</button>
+        </form>
+    </div>
+
+    <!-- MODAL DE CONFIRMAÇÃO -->
+    <div id="confirm-modal" class="modal-overlay" style="display: none;">
         <div class="modal-content">
-            <h2>Pedido Enviado! ✅</h2>
-            <p>Seu pedido foi enviado. Agora é só aguardar que vamos fritar na hora!</p>
-            <button id="btn-close-confirm" class="btn-principal">Fazer Novo Pedido</button>
+            <h2>Pedido Enviado! 🎉</h2>
+            <p>Seu pedido foi aberto no WhatsApp do estabelecimento. Acompanhe por lá!</p>
+            <button id="btn-close-confirm" class="primary-btn">Voltar ao Início</button>
         </div>
+    </div>
+
+    <!-- BOTÃO FLUTUANTE DO CARRINHO -->
+    <div class="floating-footer">
+        <button id="footer-btn" class="footer-cart-btn" style="display: none;">Peça agora!</button>
     </div>
 
     <script src="script.js"></script>
